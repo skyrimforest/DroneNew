@@ -1,6 +1,17 @@
 <template>
   <div class="beg-login-box">
-
+    <div v-if="showAnimation" class="animation-container">
+      <div class="big-text">
+        <span
+          v-for="(char, index) in characters"
+          :key="index"
+          class="char"
+          :ref="(el) => (charRefs[index] = el)"
+        >
+          {{ char }}
+        </span>
+      </div>
+    </div>
     <BorderBox8 class="border-box-wrapper">
       <div class="right-box">
         <el-card>
@@ -20,7 +31,11 @@
                 <el-col>
                   <el-text
                     type="primary"
-                    style="font-weight: bolder;font-size: xx-large; color: rgba(77, 94, 169, 1)"
+                    style="
+                      font-weight: bolder;
+                      font-size: xx-large;
+                      color: rgba(77, 94, 169, 1);
+                    "
                     >{{ $t("loginpage.title") }}</el-text
                   >
                 </el-col>
@@ -102,16 +117,17 @@
 
 <script>
 import { BorderBox8 } from "@kjgl77/datav-vue3";
-import { ElRow, ElCol, ElNotification, ElButton } from "element-plus";
+import { ElRow, ElCol, ElNotification } from "element-plus";
 import { doHttpRequest } from "@/modules/request";
 import { useStore } from "@/stores/index";
+import gsap from "gsap";
+import { ref, nextTick } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "LoginBox",
   data: () => ({
-    username: "",
-    password: "",
-    store: useStore(),
+    checked1: false,
     left_box_url: "../assets/leftbox.png",
     top_pic_url: "../assets/drone.png",
   }),
@@ -121,37 +137,87 @@ export default {
     ElCol,
     BorderBox8,
   },
+  setup() {
+    const store = useStore();
+    const username = ref("");
+    const password = ref("");
+    const showAnimation = ref(false);
+    const characters = ["无", "线", "可", "击"]; // 拆分字符
+    const router = useRouter();
+
+    const charRefs = []; // 用于保存每个字的 DOM 引用
+    const handleLogin = async () => {
+      console.log("2333");
+      showAnimation.value = true;
+
+      await nextTick();
+
+      // 逐字动画
+      gsap.fromTo(
+        charRefs,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.2, // 每个字之间延迟 0.2 秒
+          ease: "power2.out",
+          onComplete: () => {
+            // 完成后整体淡出
+            gsap.to(".animation-container", {
+              opacity: 0,
+              duration: 2,
+              ease: "power2.inOut",
+              onComplete: () => {
+                showAnimation.value = false;
+              },
+            });
+          },
+        }
+      );
+    };
+    const onLoginClick = () => {
+      const myRequestData = {
+        username: username.value,
+        password: password.value,
+      };
+      handleLogin();
+      setTimeout(() => {
+        if (username.value === "0" && password.value === "0") {
+          router.replace({ name: "MainPage" });
+          return 0;
+        }
+        doHttpRequest("LOGIN", myRequestData)
+          .then((res) => {
+            if (res.data.success == true) {
+              store.username = username.value;
+              store.password = username.value;
+              $router.replace({ name: "MainPage" });
+            } else {
+              loginFail();
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, 2000);
+    };
+    return {
+      handleLogin,
+      onLoginClick,
+      showAnimation,
+      characters,
+      charRefs,
+      username,
+      password,
+      store,
+    };
+  },
   methods: {
     getAssets(url) {
       return new URL(url, import.meta.url).href;
     },
-    onLoginClick() {
-      const myRequestData = {
-        username: this.username,
-        password: this.password,
-      };
-      if (this.username === "0" && this.password === "0") {
-        this.$router.replace({ name: "MainPage" });
-        return 0;
-      }
-      doHttpRequest("LOGIN", myRequestData)
-        .then((res) => {
-          if (res.data.success == true) {
-            this.store.username = this.username;
-            this.store.password = this.password;
-            // console.log(this.store.password);
-            // this.loginSuccess();
-            this.$router.replace({ name: "MainPage" });
-          } else {
-            this.loginFail();
-            // console.log("fail");
-            // this.$router.replace({ name: "MainPage" });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+
     loginSuccess() {
       ElNotification({
         title: "Success",

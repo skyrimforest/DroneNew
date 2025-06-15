@@ -61,3 +61,32 @@
 .letter {
     opacity: 0;
 }
+
+
+.animation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+}
+
+.big-text {
+    color: white;
+    font-size: 5rem;
+    font-weight: bold;
+    display: flex;
+    gap: 0.5em;
+}
+
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px);
+}
