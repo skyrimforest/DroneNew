@@ -1,0 +1,41 @@
+.el-header {
+  height: 8%;
+  padding: 10px;
+}
+
+.el-container {
+  height: 100%;
+  width: 100%;
+}
+
+.el-scrollbar{
+  height: 70vh;
+}
+
+.el-aside{
+  height: 100%;
+}
+
+.func-container {
+  background-color: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.placeholder-box {
+  width: 300px;
+  height: 150px;
+}
+
+.func-show-container {
+  background-color: rgba(200, 200, 200, 0);
+  align-items: center;
+  width:80%;
+  height: 10%;
+}
+
+.show-button {
+  width: 80px;
+}

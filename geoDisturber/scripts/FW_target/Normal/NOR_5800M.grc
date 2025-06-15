@@ -1,0 +1,387 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: NOR_5800M
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: NOR_5800M
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 148.0]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: BW
+  id: variable
+  parameters:
+    comment: ''
+    value: receive_para.work(START_1,END_1)[0]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [752, 372.0]
+    rotation: 0
+    state: enabled
+- name: END_1
+  id: variable
+  parameters:
+    comment: ''
+    value: '5829000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [632, 276.0]
+    rotation: 0
+    state: enabled
+- name: LO_feq
+  id: variable
+  parameters:
+    comment: ''
+    value: change_sink.work(hf_function_probe,aaa, bbb, freq_a, freq_b, freq_a[0],1)[0]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [768, 548.0]
+    rotation: 0
+    state: enabled
+- name: SAMP
+  id: variable
+  parameters:
+    comment: ''
+    value: receive_para.work(START_1,END_1)[0]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 372.0]
+    rotation: 0
+    state: enabled
+- name: START_1
+  id: variable
+  parameters:
+    comment: ''
+    value: '5725000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 276.0]
+    rotation: 0
+    state: enabled
+- name: SW_feq
+  id: variable
+  parameters:
+    comment: ''
+    value: receive_para.work(START_1,END_1)[0]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [648, 372.0]
+    rotation: 0
+    state: enabled
+- name: aaa
+  id: variable
+  parameters:
+    comment: ''
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 468.0]
+    rotation: 0
+    state: enabled
+- name: bbb
+  id: variable
+  parameters:
+    comment: ''
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [624, 468.0]
+    rotation: 0
+    state: enabled
+- name: default
+  id: variable
+  parameters:
+    comment: ''
+    value: '5250000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 276.0]
+    rotation: 0
+    state: enabled
+- name: freq_a
+  id: variable
+  parameters:
+    comment: ''
+    value: receive_para.work(START_1,END_1)[1]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 548.0]
+    rotation: 0
+    state: enabled
+- name: freq_b
+  id: variable
+  parameters:
+    comment: ''
+    value: default
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 628.0]
+    rotation: 0
+    state: enabled
+- name: hf_function_probe
+  id: variable_function_probe
+  parameters:
+    block_id: hf_probe_signal
+    comment: ''
+    function_args: ''
+    function_name: level
+    poll_rate: '10'
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 436.0]
+    rotation: 0
+    state: enabled
+- name: true_en
+  id: variable
+  parameters:
+    comment: ''
+    value: change_sink.work(hf_function_probe,aaa, bbb, freq_a, freq_b, freq_a[0],1)[1]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [768, 628.0]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_1
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: '100'
+    showports: 'False'
+    type: complex
+    waveform: analog.GR_CONST_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 548.0]
+    rotation: 0
+    state: enabled
+- name: change_sink
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: ''
+    source_code: "import time\nimport threading\n\n#global current_channel\ncurrent_channel\
+      \ = 'A'\n#global last_switch_time1\nlast_switch_time1 = time.time()\n#global\
+      \ last_switch_time2\nlast_switch_time2 = time.time()\n#global counter\ncounter\
+      \ = 0\nfirst_flag = 1\nprint(f\"INIT.............................................\"\
+      )  \n\ndef work(prob_level,enable_a, enable_b, freq_a, freq_b, temp1, temp2):\
+      \ \n    global current_channel, last_switch_time1, last_switch_time2, counter,\
+      \ first_flag, LO_freq, true_en\n    if first_flag:\n        LO_freq = temp1\n\
+      \        true_en = temp2\n        first_flag = 0\n    if prob_level:\n     \
+      \   #print(f\"####################param1: {LO_freq}, param2: {enable_a}, param3:\
+      \ {enable_b}\") \n        current_time = time.time()\n        #print(f\"OK\"\
+      )  \n        #print(f\"param1: {current_time}\")  \n        #print(f\"time1:\
+      \ {last_switch_time1}\") \n        #print(f\"time2: {last_switch_time2}\") \n\
+      \        if current_time - last_switch_time1 > 0.01:\n            if enable_a\
+      \ and not enable_b:\n                LO_freq = freq_a[counter]\n           \
+      \     counter = (counter + 1) % len(freq_a)\n                true_en = True\n\
+      \            elif enable_b and not enable_a:\n                LO_freq = freq_b[counter]\n\
+      \                counter = (counter + 1) % len(freq_b)\n                true_en\
+      \ = False\n            elif enable_a and enable_b:\n                if current_time\
+      \ - last_switch_time2 > 10:\n                    if current_channel == 'A':\n\
+      \                        true_en = False\n                        last_switch_time2\
+      \ = current_time\n                        current_channel = 'B'\n          \
+      \          elif current_channel == 'B':\n                        true_en = True\n\
+      \                        last_switch_time2 = current_time\n                \
+      \        current_channel = 'A'\n                #print(f\"param1: {current_channel}\"\
+      ) \n                active_freqs = freq_a if true_en else freq_b\n         \
+      \       #print(f\"param1: {active_freqs}\")  \n                if counter >\
+      \ len(active_freqs) - 1:\n                    counter = 0\n                LO_freq\
+      \ = active_freqs[counter]\n                counter = (counter + 1) % len(active_freqs)\
+      \ \n            last_switch_time1 = current_time\n    out = [LO_freq, true_en]\n\
+      \    return out\n"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [744, 476.0]
+    rotation: 0
+    state: enabled
+- name: hf_probe_signal
+  id: blocks_probe_signal_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1176, 588.0]
+    rotation: 0
+    state: enabled
+- name: iio_fmcomms2_sink_0
+  id: iio_fmcomms2_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    attenuation1: '3.5'
+    attenuation2: '10.0'
+    bandwidth: BW
+    buffer_size: '32768'
+    comment: ''
+    cyclic: 'True'
+    filter: ''
+    filter_source: '''Auto'''
+    fpass: '0'
+    frequency: LO_feq
+    fstop: '0'
+    len_tag_key: ''
+    rf_port_select: '''A'''
+    samplerate: SAMP
+    tx1_en: true_en
+    tx2_en: not true_en
+    type: fc32
+    uri: uri
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [824, 708.0]
+    rotation: 0
+    state: enabled
+- name: radar_signal_generator_fmcw_c_0
+  id: radar_signal_generator_fmcw_c
+  parameters:
+    affinity: ''
+    alias: ''
+    amplitude: '1'
+    comment: ''
+    freq_cw: -SW_feq/2
+    freq_sweep: SW_feq
+    len_key: '"packet_len"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_cw: '1'
+    samp_down: 2**14
+    samp_rate: SAMP
+    samp_up: 2**14
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 724.0]
+    rotation: 0
+    state: enabled
+- name: receive_para
+  id: epy_module
+  parameters:
+    alias: ''
+    comment: ''
+    source_code: "\nimport math\n\ndef calculate_split_size(start, end):    \n   \
+      \ # \u8BA1\u7B97\u6700\u5C0F\u5206\u5272\u95F4\u9694\uFF0C\u786E\u4FDD\u95F4\
+      \u9694\u5C0F\u4E8E30000000    \n    interval_length = end - start    \n    if\
+      \ interval_length <= 0:  \n        return 0  # \u5982\u679C\u533A\u95F4\u957F\
+      \u5EA6\u4E3A0\u6216\u8D1F\u6570\uFF0C\u8FD4\u56DE0\u4F5C\u4E3A\u5206\u5272\u95F4\
+      \u9694  \n    max_splits = math.ceil(interval_length / 30000000.0)    \n   \
+      \ if max_splits == 0:    \n        max_splits = 1    \n    split_size = max(1,\
+      \ interval_length // max_splits)  # \u786E\u4FDD\u5206\u5272\u95F4\u9694\u81F3\
+      \u5C11\u4E3A1  \n    return split_size\n\n\n\ndef work(A, B):    \n    # \u68C0\
+      \u67E5\u53C2\u6570\u662F\u5426\u5408\u6CD5    \n    if not (0 <= A <= B):  \
+      \  \n        print(\"A, B\u5FC5\u987B\u6EE1\u8DB3\u6761\u4EF6\uFF1A0 <= A <=\
+      \ B\")    \n        return None, None    \n    \n    # \u8BA1\u7B97\u533A\u95F4\
+      \u7684\u6700\u5C0F\u5206\u5272\u95F4\u9694  \n    split_size_AB = calculate_split_size(A,\
+      \ B)  \n  \n    # \u53D6\u4E24\u4E2A\u95F4\u9694\u4E2D\u7684\u8F83\u5927\u503C\
+      \u4F5C\u4E3A\u7EDF\u4E00\u7684\u95F4\u9694\u5927\u5C0F  \n    unified_split_size\
+      \ = max(split_size_AB, 1000000)  \n  \n    # \u5212\u5206\u533A\u95F4(A, B)\
+      \  \n    centers_AB = []  \n    if B-A < unified_split_size:\n        current_position\
+      \ = (A + B) / 2\n        centers_AB.append(int(current_position)) \n    else:\n\
+      \        current_position = A + unified_split_size / 2  \n        while current_position\
+      \ < B:  \n            centers_AB.append(int(current_position))  \n         \
+      \   current_position += unified_split_size  \n        if centers_AB[-1] > B:\
+      \  \n            centers_AB[-1] = B \n \n    out = [unified_split_size, centers_AB]\n\
+      \    return out\n"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [848, 284.0]
+    rotation: 0
+    state: enabled
+- name: uri
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: 192.168.1.12
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [736, 156.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_sig_source_x_1, '0', hf_probe_signal, '0']
+- [radar_signal_generator_fmcw_c_0, '0', iio_fmcomms2_sink_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.9.2

@@ -1,0 +1,10 @@
+﻿[Unit]
+Description=pyfw station parent main
+After=network.target
+[Service]
+ExecStart=/home/add/Desktop/pyfw01/start-main.sh
+Restart=on-failure
+StartLimitInterval=3
+StartLimitBurst=100
+[Install]
+WantedBy=multi-user.target

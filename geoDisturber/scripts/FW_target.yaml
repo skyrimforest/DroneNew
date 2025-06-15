@@ -1,0 +1,81 @@
+﻿# 此处进行脚本文件的配置
+# 实际上告知前端与脚本相关的信息,如果前端没有这个需求就不需要管这些东西.
+
+config:
+  root: FW_target
+  patterns:
+    - pattern:
+        dirname: custom
+        name: 定制干扰
+        power:
+
+        commands:
+          - command:
+              config:
+                - START-1
+                - END-1
+              files:
+                - CUSTOM_400M.py
+                - CUSTOM_900M.py
+
+                - CUSTOM_1400M.py
+                - CUSTOM_1500M.py
+
+                - CUSTOM_5800M.py
+                - CUSTOM_5200M.py
+
+                - CUSTOM_2400M.py
+
+          - command:
+              config:
+                - START-1
+                - END-1
+                - START-2
+                - END-2
+              files:
+                - CUSTOM_5800M_5200M.py
+                - CUSTOM_1500M_1400M.py
+                - CUSTOM_900M_400M.py
+
+    - pattern:
+        dirname: normal
+        name: 正常频段干扰
+        power:
+        commands:
+          - command:
+              config:
+                -
+              files:
+                - NOR_900M.py
+                - NOR_1400M.py
+                - NOR_2400M.py
+                - NOR_5800M.py
+
+    - pattern:
+        dirname: sweep
+        name: 扫频干扰
+        power:
+          - High
+          - Low
+          - Lower-Medium
+          - Upper-Medium
+        commands:
+          - command:
+              config:
+                -
+              files:
+                - SIN_400M.py
+                - SIN_900M.py
+                - DOU_900M_400M.py
+
+                - SIN_1400M.py
+                - SIN_1500M.py
+                - DOU_1500M_1400M.py
+
+                - SIN_5800M.py
+                - SIN_5200M.py
+                - DOU_5800M_5200M.py
+
+                - SIN_2400M.py
+
+

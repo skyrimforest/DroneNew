@@ -1,0 +1,6 @@
+num_classes: 3
+batch_size: 16
+epochs: 20
+lr: 0.001
+in_channels: 3  # 每个时间段的特征数
+out_channels: 64

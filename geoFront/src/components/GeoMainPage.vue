@@ -1,0 +1,244 @@
+<template>
+  <div class="common-layout">
+    <Draggable></Draggable>
+
+    <ElContainer>
+      <ElAside>
+        <ElMenu>
+          <ElSubMenu index="1">
+            <template #title>
+              <Button color="#615ea8" font-color="#e18a3b" style="width: 200px;"
+                ><el-icon><MapLocation /></el-icon>地图控制</Button
+              >
+            </template>
+            <ElMenuItemGroup>
+              <Button color="#615ea8" font-color="#e18a3b" @click="zoomIn"
+                >地图放大</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="zoomOut"
+                >地图缩小</Button
+              >
+
+              <!-- <ElMenuItem index="1-1" @click="zoomIn">地图放大</ElMenuItem>
+              <ElMenuItem index="1-2" @click="zoomOut">地图缩小</ElMenuItem> -->
+            </ElMenuItemGroup>
+          </ElSubMenu>
+
+          <ElSubMenu index="2">
+            <template #title>
+              <Button color="#615ea8" font-color="#e18a3b" style="width: 200px;"
+                ><el-icon><EditPen /></el-icon>预警区绘制</Button
+              >
+              <!-- <el-icon><EditPen /></el-icon>预警区绘制 -->
+            </template>
+            <ElMenuItemGroup>
+              <Button color="#615ea8" font-color="#e18a3b" @click="drawRect"
+                >矩形预警区</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="drawCir"
+                >圆形预警区</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="drawRemove"
+                >擦除预警区</Button
+              >
+              <!-- 
+              <ElMenuItem index="2-1" @click="drawRect">矩形预警区</ElMenuItem>
+              <ElMenuItem index="2-2" @click="drawCir">圆形预警区</ElMenuItem>
+              <ElMenuItem index="2-3" @click="drawRemove"
+                >擦除预警区</ElMenuItem
+              > -->
+            </ElMenuItemGroup>
+          </ElSubMenu>
+
+          <ElSubMenu index="3">
+            <template #title>
+              <Button color="#615ea8" font-color="#e18a3b" style="width: 200px;"
+                ><el-icon><Link /></el-icon>控制区控制</Button
+              >
+              <!-- <el-icon><Link /></el-icon>控制区控制 -->
+            </template>
+            <ElMenuItemGroup>
+              <Button color="#615ea8" font-color="#e18a3b" @click="drawMarker"
+                >设置控制区坐标</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="centerReturn"
+                >返回中心点</Button
+              >
+              <!-- <ElMenuItem index="3-1" @click="drawMarker"
+                >设置控制区坐标</ElMenuItem
+              >
+              <ElMenuItem index="3-2" @click="centerReturn"
+                >返回中心点</ElMenuItem
+              > -->
+            </ElMenuItemGroup>
+          </ElSubMenu>
+
+          <ElSubMenu index="4">
+            <template #title>
+              <!-- <el-icon><Setting /></el-icon>反击功能展开 -->
+              <Button color="#615ea8" font-color="#e18a3b" style="width: 200px;"
+                ><el-icon><Setting /></el-icon>反击功能展开</Button
+              >
+            </template>
+            <ElMenuItemGroup>
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2event"
+                >事件展示</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2ai"
+                >AI学习</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2white"
+                >白名单</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2statis"
+                >统计</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2disturb"
+                >干扰</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2device"
+                >设备管理</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2version"
+                >版本管理</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2user"
+                >账户管理</Button
+              >
+              <Button color="#615ea8" font-color="#e18a3b" @click="jump2logout"
+                >退出登录</Button
+              >
+            </ElMenuItemGroup>
+          </ElSubMenu>
+        </ElMenu>
+      </ElAside>
+
+      <ElMain>
+        <NewMapContainer></NewMapContainer>
+      </ElMain>
+    </ElContainer>
+
+    <ElDrawer v-model="drawer" size="50%">
+      <template #header>
+        <h4>{{ command }}</h4>
+      </template>
+      <template #default>
+        <div class="draw-box">
+          <router-view> </router-view>
+        </div>
+      </template>
+      <template #footer> </template>
+    </ElDrawer>
+  </div>
+</template>
+
+<script setup>
+// 地图选型
+import NewMapContainer from "../views/NewMapComTrans.vue";
+import DispInfoBox from "../views/DispInfoBox.vue";
+import DispFuncBox from "../views/DispFuncBox.vue";
+import Draggable from "../views/Draggable.vue";
+
+import { ref, onMounted } from "vue";
+
+import { Button } from "@kjgl77/datav-vue3";
+
+// 引入路由
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+// 引入全局管理
+import { useMapDataStore } from "../stores/mapData";
+import { useMusicData } from "../stores/music";
+const store = useMapDataStore();
+const musicStore = useMusicData();
+
+const confirmClick = () => {};
+const cancelClick = () => {};
+// ----------音乐播放代码----------
+onMounted(() => {
+  musicStore.playMusic("BGM");
+});
+
+// ----------地图控制区域代码----------
+// 地图变大
+const zoomIn = () => {
+  store.zoomIn();
+};
+
+// 地图缩小
+const zoomOut = () => {
+  store.zoomOut();
+};
+
+// ----------预警区绘制区域代码----------
+const drawRect = () => {
+  store.drawRect();
+};
+const drawCir = () => {
+  store.drawCir();
+};
+const drawRemove = () => {
+  store.drawRemove();
+};
+
+// ----------控制区控制区域代码----------
+const drawMarker = () => {
+  store.drawMarker();
+};
+const centerReturn = () => {
+  store.centerReturn();
+};
+
+// ----------draw控件展示代码----------
+const drawer = ref(0);
+const command = ref("no command");
+
+const jump2event = () => {
+  drawer.value = 1;
+  command.value = "事件展示";
+  router.replace({ name: "FuncEvent" });
+};
+const jump2ai = () => {
+  drawer.value = 1;
+  command.value = "AI学习";
+  router.replace({ name: "FuncAI" });
+};
+const jump2white = () => {
+  drawer.value = 1;
+  command.value = "白名单";
+  router.replace({ name: "FuncWhiLi" });
+};
+const jump2statis = () => {
+  drawer.value = 1;
+  command.value = "统计";
+  router.replace({ name: "FuncSta" });
+};
+const jump2disturb = () => {
+  drawer.value = 1;
+  command.value = "干扰";
+  router.replace({ name: "FuncDis" });
+};
+const jump2device = () => {
+  drawer.value = 1;
+  command.value = "设备管理";
+  router.replace({ name: "FuncDev" });
+};
+const jump2version = () => {
+  drawer.value = 1;
+  command.value = "版本管理";
+  router.replace({ name: "FuncVer" });
+};
+const jump2user = () => {
+  drawer.value = 1;
+  command.value = "账户管理";
+  router.replace({ name: "FuncUser" });
+};
+const jump2logout = () => {
+  drawer.value = 1;
+  command.value = "事件展示";
+  router.replace({ name: "LoginPage" });
+};
+</script>
+
+<style src="../styles/mainpage.css" scoped></style>

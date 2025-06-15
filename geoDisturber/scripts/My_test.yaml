@@ -1,0 +1,52 @@
+# 此处进行脚本文件的配置
+# 实际上告知前端与脚本相关的信息,如果前端没有这个需求就不需要管这些东西.
+
+config:
+  root: My_test
+  patterns:
+    - pattern:
+        dirname: pattern01
+        name: 模式1
+        power:
+        commands:
+          - command:
+              config:
+                - end
+                - numbers
+              files:
+                - mytest.py
+                - mynettest.py
+          - command:
+              config:
+                -
+              files:
+                - mytest.py
+                - mynettest.py
+
+
+    - pattern:
+        dirname: pattern02
+        name: 模式2
+        power:
+        commands:
+          - command:
+              config:
+                -
+              files:
+                - mytest.py
+
+
+    - pattern:
+        dirname: pattern03
+        name: 模式3
+        power:
+          - power01
+          - power02
+        commands:
+          - command:
+              config:
+                -
+              files:
+                - mytest.py
+
+
