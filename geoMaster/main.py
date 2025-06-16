@@ -1,6 +1,8 @@
 ﻿# 引入http网口规范
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+
 # 引入服务器
 import uvicorn
 # 引入命令行参数读取
@@ -8,6 +10,7 @@ import argparse
 # 引入路由控件
 from controller import child_controller
 from controller import zed_controller
+from controller import ai_controller
 # 引入基本配置
 import BaseConfig
 
@@ -19,6 +22,7 @@ import threading
 app = FastAPI()
 app.include_router(child_controller.router)
 app.include_router(zed_controller.router)
+app.include_router(ai_controller.router)
 
 origins = [
     "*",
@@ -61,11 +65,14 @@ async def root():
 # 这里的线程不需要join,因为系统持续运行不需要阻塞
 # client_thread.join()
 # 启动所有线程运行
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # 启动时执行
     # zed_service.run_tcp_client_and_save_data()
     # zed_service.run_fft()
     work_service.run_work_thread()
+    yield  # 应用运行中
+    # 关闭时执行
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)

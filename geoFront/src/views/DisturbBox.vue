@@ -136,8 +136,6 @@
         </ElTableColumn>
       </el-table>
 
-      <!-- 脚部区域 -->
-      <!-- <template #footer>Footer content</template> -->
     </el-card>
   </div>
 </template>

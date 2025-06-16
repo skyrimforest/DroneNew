@@ -4,18 +4,19 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from torch_geometric.data import Data
-from model import ASTGCN_with_GAT  # 假设你的模型路径
+from geoMaster.utils.ASTGCN.model import ASTGCN_with_GAT  # 假设你的模型路径
 import argparse
 from PIL import Image
 from sklearn.preprocessing import StandardScaler
 
+PATH=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__))))
 
 # 配置
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model_path = 'astgcn_with_gat_model.pth'  # 修改为你的模型路径
+model_path =PATH+'/astgcn_with_gat_model.pth'  # 修改为你的模型路径
 dropout = 0
 batch_size = 1
-outputDir = './test_images/'  # 保存图像的目录
+outputDir = PATH+'/test_images/'  # 保存图像的目录
 
 # 确保输出目录存在
 os.makedirs(outputDir, exist_ok=True)
@@ -157,6 +158,12 @@ def main(input_file):
     print(f"预测类别：{prediction}")
     print(f"保存的图像文件：{fname}")
 
+    res={
+        "class":prediction,
+        "filename":fname
+    }
+
+    return res
 
 if __name__ == "__main__":
     # 使用 argparse 处理命令行参数

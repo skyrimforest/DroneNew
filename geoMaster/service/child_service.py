@@ -62,7 +62,6 @@ def get_connected_child_info():
         child_data["name"] = child["uuid"]
         child_data["lastupdate"] = child["start_time"].strftime("%m-%d %H:%M:%S")
         new_child_list.append(child_data)
-    # print(new_child_list)
     return new_child_list
 
 

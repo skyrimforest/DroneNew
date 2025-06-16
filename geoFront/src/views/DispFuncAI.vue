@@ -10,35 +10,60 @@
               font-color="#615ea8"
               border="Border6"
               @click="getAIInfo"
-              >系统当前识别结果</Button
+              >系统当前采样结果</Button
             >
           </div>
         </dv-decoration7>
       </template>
       <!-- 脚本池区域 -->
-      <ScriptBlock
-        v-for="(script, timestamp) in store.sampleList"
+      <CommonBlock
+        v-for="(target, timestamp) in store.bindataList"
         :key="timestamp"
-        :script="script"
+        :target="target"
+        title="采集结果"
+        operation="模型识别"
+        name="名称"
+        time="时间"
       >
-      </ScriptBlock>
+      </CommonBlock>
+    </ElCard>
+    <ElCard>
+      <!-- 头部区域 -->
+      <template #header>
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button
+              color="#615ea8"
+              font-color="#615ea8"
+              border="Border6"
+              disabled="true"
+              >识别结果</Button
+            >
+          </div>
+        </dv-decoration7>
+      </template>
+      <!-- 脚本池区域 -->
+      <AIResultBlock
+        v-for="(target, timestamp) in store.resultList"
+        :key="timestamp"
+        :target="target"
+      >
+      </AIResultBlock>
     </ElCard>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import DisturbBox from "./DisturbBox.vue";
-import ScriptBlock from "./ScriptBlock.vue";
-import { useDisturbData } from "@/stores/disturb";
+import CommonBlock from "./CommonBlock.vue";
+import { useAIData } from "@/stores/ai";
 import { Button } from "@kjgl77/datav-vue3";
+import AIResultBlock from "./AIResultBlock.vue";
 
-const store = useDisturbData();
-const router = useRouter();
+const store = useAIData();
 
 const getAIInfo = () => {
   console.log("getAIInfo");
+  store.getAIInfo();
 };
 </script>
 <style scoped src="../styles/dispbox.css"></style>

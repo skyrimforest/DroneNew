@@ -310,7 +310,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.masterOK = false;
         });
     },
@@ -345,7 +345,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.masterOK = false;
         });
     },
@@ -373,7 +373,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.mapOK = false;
         });
     },
@@ -401,7 +401,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.disturbOK = false;
         });
     },

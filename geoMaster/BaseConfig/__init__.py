@@ -22,6 +22,10 @@ def get_host_ip():
 # 日志文件夹
 LOG_PATH = ROOT_DIR + '/loginfo'
 DB_PATH = ROOT_DIR + '/db'
+BIN_PATH=ROOT_DIR + '/utils/ASTGCN/dataset'
+AI_PIC_PATH = ROOT_DIR + '/utils/ASTGCN/test_images'
+
+
 # 启动参数
 ARGS = None
 # 本机名称

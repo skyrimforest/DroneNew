@@ -1,0 +1,13 @@
+.airesultblock {
+  width: 100%;
+  padding: 5px;
+  display: inline-block;
+}
+
+.el-button {
+  height: 40%;
+}
+
+.el-card header {
+  padding: 0px;
+}

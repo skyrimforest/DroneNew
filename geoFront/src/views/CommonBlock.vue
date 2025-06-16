@@ -9,7 +9,7 @@
               ><el-tag>{{ title }}</el-tag>
             </el-col>
             <el-col :span="12">
-              <el-button @click="closeSelf"> {{ operation }} </el-button>
+              <el-button @click="doInferReq"> {{ operation }} </el-button>
             </el-col>
           </el-row>
         </div>
@@ -17,10 +17,10 @@
 
       <el-descriptions :column="1">
         <el-descriptions-item :label="name"
-          ><el-tag>{{ script.timestamp }}</el-tag></el-descriptions-item
+          ><el-tag>{{ target.filename }}</el-tag></el-descriptions-item
         >
         <el-descriptions-item :label="time"
-          ><el-tag>{{ script.command }}</el-tag></el-descriptions-item
+          ><el-tag>{{ target.timestamp }}</el-tag></el-descriptions-item
         >
       </el-descriptions>
     </el-card>
@@ -28,10 +28,12 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted, onUpdated, compile } from "vue";
-import { doHttpRequest } from "@/modules/request";
-import { useDisturbData } from "@/stores/disturb";
-const store = useDisturbData();
+import { ref, toRefs, onMounted, onUpdated } from "vue";
+import { useAIData } from "@/stores/ai";
+import { APIS } from "@/modules/request";
+import { doHttpRequest, getWebSocket } from "@/modules/request.js";
+
+const store = useAIData();
 
 const props = defineProps({
   target: Object,
@@ -44,19 +46,31 @@ const { target, title, operation, name, time } = toRefs(props);
 
 onMounted(() => {});
 onUpdated(() => {});
-const closeSelf = () => {
+
+const doInferReq = () => {
+  console.log("doInferReq");
+  console.log(target);
+  console.log(target.value);
+  store.resultList.push({
+    filename: target.value.filename,
+    loading: true,
+  });
+  const idx = store.resultList.length - 1;
   const data = {
-    uuid: script.value.timestamp,
+    info: {
+      filename: target.value.filename,
+    },
   };
-  doHttpRequest("STOP_SCRIPT", data)
-    .then((res) => {
-      delete store.scriptList[script.value.timestamp];
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
+  doHttpRequest("INFERREQ", data).then((res) => {
+    console.log("res");
+    console.log(res.data);
+    store.resultList[idx] = res.data.infer;
+    store.resultList[idx].url = APIS.GET_PIC[1] +'/'+ res.data.infer.filename;
+    store.resultList[idx].loading = false;
+    console.log(store.resultList[idx]);
+  });
 };
 </script>
 
-<style scoped src="../styles/scriptblock.css"></style>
+<style scoped src="../styles/commonblock.css"></style>
