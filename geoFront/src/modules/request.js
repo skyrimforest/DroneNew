@@ -3,7 +3,7 @@ import APIS from "./api"
 
 
 const service = axios.create({
-    timeout: 5000,
+    timeout: 15000,
 })
 
 // 这里api输入宏命名即可

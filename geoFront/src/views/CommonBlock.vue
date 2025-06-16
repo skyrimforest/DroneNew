@@ -67,6 +67,7 @@ const doInferReq = () => {
     console.log(res.data);
     store.resultList[idx] = res.data.infer;
     store.resultList[idx].url = APIS.GET_PIC[1] +'/'+ res.data.infer.filename;
+    store.resultList[idx].filename = target.value.filename;
     store.resultList[idx].loading = false;
     console.log(store.resultList[idx]);
   });
