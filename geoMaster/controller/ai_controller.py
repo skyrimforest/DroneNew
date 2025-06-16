@@ -6,10 +6,10 @@
 @Date    ：2025/6/15 10:28 
 '''
 
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter
 from geoMaster.SkyLogger import get_logger
 from geoMaster.service import ai_service
-from geoMaster.schema.all_schema import ChildInfo, PureInfo
+from geoMaster.schema.all_schema import PureInfo
 
 router = APIRouter(
     prefix="/ai",

@@ -63,7 +63,7 @@ const startDrag = (event) => {
 <style scoped>
 .draggable {
   width: 430px;
-  height: 560px;
+  height: 630px;
 }
 
 .border-box-wrapper {

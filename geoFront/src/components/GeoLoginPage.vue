@@ -10,7 +10,6 @@
 import { ElButton } from "element-plus";
 import LoginBox from "../views/LoginBox.vue";
 import { showInfo, doHttpRequest } from "@/modules/request";
-import { animate } from "animejs";
 
 export default {
   name: "LoginPage",

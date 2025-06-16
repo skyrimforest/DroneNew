@@ -66,15 +66,6 @@
               </el-descriptions-item>
 
               <el-descriptions-item align="center">
-                <!-- <el-tooltip
-                  class="box-item"
-                  effect="dark"
-                  :content="childOnlineInfo"
-                  placement="top-start"
-                >
-                  <el-icon><More :style="{ color: childOnline }" /></el-icon
-                ></el-tooltip> -->
-
                 <el-table
                   :data="nodeStatus"
                   stripe
@@ -107,12 +98,14 @@
             >
               <el-descriptions-item label="本次检测" size="2" align="center"
                 ><span :style="{ color: colorOK }">
-                  {{ num_cur }}
+                  <dv-digital-flop :config="current_config" />
+                  <!-- {{ num_cur }} -->
                 </span></el-descriptions-item
               >
               <el-descriptions-item label="30日检测" align="center">
                 <span :style="{ color: colorOK }">
-                  {{ num_past }}
+                  <dv-digital-flop :config="past_config" />
+                  <!-- {{ num_past }} -->
                 </span></el-descriptions-item
               >
             </el-descriptions>
@@ -181,8 +174,8 @@ import {
 import { SwitchFilled } from "@element-plus/icons-vue";
 import { useMapDataStore } from "@/stores/mapData";
 import { useMusicData } from "../stores/music";
-import { doHttpRequest, getWebSocket, getApiUrl } from "@/modules/request.js";
-
+import { doHttpRequest } from "@/modules/request.js";
+import { reactive } from 'vue' // 关键导入语句
 export default {
   name: "DispInfoBox",
   components: {
@@ -198,6 +191,20 @@ export default {
     ElTable,
     ElTableColumn,
     ElNotification,
+  },
+  setup() {
+    const current_config = reactive({
+      number: [0],
+      content: "{nt}个",
+    });
+    const past_config = reactive({
+      number: [0],
+      content: "{nt}个",
+    });
+    return {
+      current_config,
+      past_config,
+    };
   },
   computed: {
     fwColor() {
@@ -241,8 +248,6 @@ export default {
     // Websocket
     droneWS: null,
     value: "",
-    num_cur: 0,
-    num_past: 0,
     mapStore: useMapDataStore(),
     musicStore: useMusicData(),
     colorOK: "#55ff55",

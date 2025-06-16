@@ -1,28 +1,28 @@
 <template>
-  <div class="scriptblock">
-    <!-- "child pattern"{{ pattern }} -->
+  <div class="commonblock">
     <el-card>
       <!-- 头部区域 -->
       <template #header>
         <div class="card-header">
           <el-row>
-            <el-col :span="12"><el-tag>脚本信息</el-tag> </el-col>
+            <el-col :span="12"
+              ><el-tag>{{ title }}</el-tag>
+            </el-col>
             <el-col :span="12">
-              <el-button @click="closeSelf"> 关闭 </el-button>
+              <el-button @click="closeSelf"> {{ operation }} </el-button>
             </el-col>
           </el-row>
         </div>
       </template>
 
       <el-descriptions :column="1">
-        <el-descriptions-item label="UUID"
+        <el-descriptions-item :label="name"
           ><el-tag>{{ script.timestamp }}</el-tag></el-descriptions-item
         >
-        <el-descriptions-item label="Script"
+        <el-descriptions-item :label="time"
           ><el-tag>{{ script.command }}</el-tag></el-descriptions-item
         >
       </el-descriptions>
-
     </el-card>
   </div>
 </template>
@@ -34,9 +34,13 @@ import { useDisturbData } from "@/stores/disturb";
 const store = useDisturbData();
 
 const props = defineProps({
-  script: Object,
+  target: Object,
+  title: String,
+  operation: String,
+  name: String,
+  time: String,
 });
-const { script } = toRefs(props);
+const { target, title, operation, name, time } = toRefs(props);
 
 onMounted(() => {});
 onUpdated(() => {});

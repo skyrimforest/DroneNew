@@ -3,7 +3,6 @@
 
     <ElRow>
       <ElCol :span="1">
-
       </ElCol>
       <ElCol :span="12">
         <ElButton @click="add_white">
