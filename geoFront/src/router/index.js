@@ -9,6 +9,7 @@ import DispFuncDis from "../views/DispFuncDis.vue";
 import DispFuncUser from "../views/DispFuncUser.vue";
 import DispFuncVer from "../views/DispFuncVer.vue";
 import DispFuncWhiLi from "../views/DispFuncWhiteList.vue";
+import DispFuncPackDecode from "../views/DispFuncPackDecode.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +63,11 @@ const router = createRouter({
           path: "/main/whili",
           name: "FuncWhiLi",
           component: DispFuncWhiLi,
+        },
+        {
+          path: "/main/decode",
+          name: "FuncDecode",
+          component: DispFuncPackDecode,
         },
       ],
     },
