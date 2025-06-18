@@ -2,9 +2,13 @@
   <div class="func-container">
     <ElContainer>
       <ElHeader>
-        <ElRow>
-          <ElCol :span="10"> 无人机波形统计报告 </ElCol>
-        </ElRow>
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button color="#615ea8" font-color="#615ea8" border="Border6">
+              无人机波形统计报告</Button
+            >
+          </div>
+        </dv-decoration7>
       </ElHeader>
 
       <ElMain style="--el-main-padding: 0px">
@@ -112,6 +116,7 @@ import { ref, provide, onMounted, onDeactivated, onUnmounted } from "vue";
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { PieChart, LineChart, BarChart } from "echarts/charts";
+import { Button } from "@kjgl77/datav-vue3";
 
 import { doHttpRequest, getWebSocket } from "@/modules/request.js";
 
@@ -183,7 +188,7 @@ const reconnectWebSocket = () => {
 };
 
 onMounted(() => {
-  startListenFrequency()
+  startListenFrequency();
   // masterWS.value = getWebSocket("MASTER_WEBSOCKET");
   // masterWS.value.onmessage = (msg) => {
   //   handleMaster(msg.data);

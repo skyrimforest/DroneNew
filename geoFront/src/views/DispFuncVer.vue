@@ -1,7 +1,20 @@
 <template>
   <div class="func-container">
     <ElContainer>
-      <ElHeader>版本管理</ElHeader>
+      <ElHeader>
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button
+              color="#615ea8"
+              font-color="#615ea8"
+              @click="getNodeInfo"
+              border="Border6"
+            >
+              版本管理</Button
+            >
+          </div>
+        </dv-decoration7>
+      </ElHeader>
       <ElMain style="--el-main-padding: 0px">
         <ElScrollbar>
           <ElRow>
@@ -61,6 +74,8 @@
 <script setup>
 import { ElScrollbar } from "element-plus";
 import { ref } from "vue";
+import { Button } from "@kjgl77/datav-vue3";
+
 import { useRouter } from "vue-router";
 const router = useRouter();
 </script>

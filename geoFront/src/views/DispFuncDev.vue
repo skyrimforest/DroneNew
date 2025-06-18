@@ -2,7 +2,19 @@
   <div class="func-container">
     <ElContainer>
       <ElHeader>
-        <ElButton @click="getNodeInfo">获取当前在线节点信息</ElButton>
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button
+              color="#615ea8"
+              font-color="#615ea8"
+              @click="getNodeInfo"
+              border="Border6"
+            >
+              获取当前在线节点信息</Button
+            >
+          </div>
+        </dv-decoration7>
+        <!-- <ElButton @click="getNodeInfo">获取当前在线节点信息</ElButton> -->
       </ElHeader>
       <ElMain style="--el-main-padding: 0px">
         <ElScrollbar>
@@ -406,6 +418,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { doHttpRequest } from "@/modules/request.js";
+import { Button } from "@kjgl77/datav-vue3";
 
 const colorOnline = ref("#55ff55");
 const colorOffline = ref("#ff5555");

@@ -10,6 +10,7 @@ import DispFuncUser from "../views/DispFuncUser.vue";
 import DispFuncVer from "../views/DispFuncVer.vue";
 import DispFuncWhiLi from "../views/DispFuncWhiteList.vue";
 import DispFuncPackDecode from "../views/DispFuncPackDecode.vue";
+import DispFuncLLM from "../views/DispFuncLLM.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,11 @@ const router = createRouter({
           path: "/main/decode",
           name: "FuncDecode",
           component: DispFuncPackDecode,
+        },
+        {
+          path: "/main/llm",
+          name: "FuncLLM",
+          component: DispFuncLLM,
         },
       ],
     },

@@ -2,34 +2,39 @@
   <div class="func-container">
     <ElContainer>
       <ElHeader>
-        <ElRow>
-          <ElCol :span="4">
-            无人机报文解密
-          </ElCol>
-          <ElCol :span="10">
-          </ElCol>
-          <ElCol :span="10">
-            <ElButton @click="add_white">
-              添加白名单
-            </ElButton>
-            <ElButton @click="export_white">
-              导出白名单
-            </ElButton>
-            <ElButton @click="import_white">
-              引入白名单
-            </ElButton>
-          </ElCol>
-        </ElRow>
-      </ElHeader>
-      <ElMain style="--el-main-padding: 0px;height: 100%">
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button color="#615ea8" font-color="#615ea8" border="Border6">
+              报文解密</Button
+            >
+          </div>
+        </dv-decoration7></ElHeader
+      >
+      <ElMain style="--el-main-padding: 0px; height: 100%">
         <ElScrollbar>
-          <ElTable :data="droneData" style="width: 100%" :row-class-name="tableRowClassName">
+          <ElTable
+            :data="droneData"
+            style="width: 100%"
+            :row-class-name="tableRowClassName"
+          >
             <ElTableColumn prop="test1" label="列1" width="180" />
             <ElTableColumn prop="test2" label="列2" width="180" />
             <ElTableColumn prop="lookInfo" label="查看详情">
               <template #default="scope">
-                <el-button link type="primary" size="small" @click="handleClick(scope.$index)">展示1</el-button>
-                <el-button link type="primary" size="small" @click="handleClick(scope.$index)">展示2</el-button>
+                <el-button
+                  link
+                  type="primary"
+                  size="small"
+                  @click="handleClick(scope.$index)"
+                  >展示1</el-button
+                >
+                <el-button
+                  link
+                  type="primary"
+                  size="small"
+                  @click="handleClick(scope.$index)"
+                  >展示2</el-button
+                >
               </template>
             </ElTableColumn>
             <ElTableColumn prop="test3" label="列3" width="180" />
@@ -40,10 +45,10 @@
   </div>
 </template>
 
-
-
 <script setup>
 import { ref } from "vue";
+import { Button } from "@kjgl77/datav-vue3";
+
 const droneData = [
   {
     test1: "test1",
@@ -52,14 +57,14 @@ const droneData = [
     lookInfo: "Tom",
   },
 ];
-function add_white(){
-  console.log("添加")
+function add_white() {
+  console.log("添加");
 }
-function export_white(){
-  console.log("导出")
+function export_white() {
+  console.log("导出");
 }
-function import_white(){
-  console.log("引入")
+function import_white() {
+  console.log("引入");
 }
 </script>
 

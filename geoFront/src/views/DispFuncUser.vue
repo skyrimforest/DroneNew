@@ -1,7 +1,15 @@
 <template>
   <div class="func-container">
     <ElContainer>
-      <ElHeader>账户设置</ElHeader>
+      <ElHeader>
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button color="#615ea8" font-color="#615ea8" border="Border6">
+              账户设置</Button
+            >
+          </div>
+        </dv-decoration7></ElHeader
+      >
       <ElMain style="--el-main-padding: 0px">
         <ElScrollbar>
           <ElRow>
@@ -118,6 +126,8 @@
 import { ElButton } from "element-plus";
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { Button } from "@kjgl77/datav-vue3";
+
 const router = useRouter();
 var tarpwd = ref("");
 var oripwd = ref("");

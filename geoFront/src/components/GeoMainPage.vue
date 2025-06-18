@@ -15,7 +15,7 @@
       </ElHeader>
       <ElContainer>
         <ElAside class="sidebar">
-          <dv-border-box12 class="border-box-wrapper ">
+          <dv-border-box12 class="border-box-wrapper">
             <ElMenu
               class="custom-menu"
               background-color="#1e1e2f"
@@ -106,11 +106,17 @@
                   </Button>
                 </template>
                 <ElMenuItemGroup>
-                  <Button
+                  <!-- <Button
                     color="#00ffc6"
                     class="menu-action-button"
                     @click="jump2event"
                     >事件展示</Button
+                  > -->
+                  <Button
+                    color="#00ffc6"
+                    class="menu-action-button"
+                    @click="jump2llm"
+                    >智能体助理</Button
                   >
                   <Button
                     color="#00ffc6"
@@ -261,6 +267,11 @@ const jump2ai = () => {
   drawer.value = 1;
   command.value = "AI学习";
   router.replace({ name: "FuncAI" });
+};
+const jump2llm = () => {
+  drawer.value = 1;
+  command.value = "智能体助理";
+  router.replace({ name: "FuncLLM" });
 };
 const jump2white = () => {
   drawer.value = 1;

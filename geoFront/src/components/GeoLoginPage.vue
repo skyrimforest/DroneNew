@@ -1,14 +1,14 @@
 <template>
   <div class="login-wrapper">
-    <LoginBox />
-
-
+    <!-- <LoginBox /> -->
+    <NewLoginBox />
   </div>
 </template>
 
 <script>
 import { ElButton } from "element-plus";
 import LoginBox from "../views/LoginBox.vue";
+import NewLoginBox from "../views/NewLoginBox.vue";
 import { showInfo, doHttpRequest } from "@/modules/request";
 
 export default {
@@ -16,6 +16,7 @@ export default {
   components: {
     ElButton,
     LoginBox,
+    NewLoginBox
   },
   data: () => ({
     username: "",
@@ -29,8 +30,6 @@ export default {
 </script>
 
 <style scoped>
-/* global.css or App.vue */
-
 /* 登录盒子容器，全屏居中 */
 .login-wrapper {
   width: 100vw;
