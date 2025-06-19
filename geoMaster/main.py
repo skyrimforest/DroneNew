@@ -8,21 +8,18 @@ import uvicorn
 # 引入命令行参数读取
 import argparse
 # 引入路由控件
-from controller import child_controller
-from controller import zed_controller
-from controller import ai_controller
+from controller import child_controller,ai_controller,zed_controller,decoder_controller
 # 引入基本配置
 import BaseConfig
 
 # 引入zed通信服务组件
-from service import zed_service, work_service
-
-import threading
+from service import work_service
 
 app = FastAPI()
 app.include_router(child_controller.router)
 app.include_router(zed_controller.router)
 app.include_router(ai_controller.router)
+app.include_router(decoder_controller.router)
 
 origins = [
     "*",

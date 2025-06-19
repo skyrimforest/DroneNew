@@ -8,10 +8,11 @@ import argparse
 
 import BaseConfig
 # 引入路由控件
-from controller import script_controller
+from controller import script_controller,trap_controller
 
 app = FastAPI()
 app.include_router(script_controller.router)
+app.include_router(trap_controller.router)
 
 # 处理cors问题
 origins=[
