@@ -44,14 +44,13 @@
         <l-marker
           v-for="(marker, index) in this.store.markerList"
           :key="index"
-          :lat-lng="marker"
-          :icon="getIcon('landmark')"
+          :lat-lng="marker.marker"
+          :icon="getIcon(marker.iconType)"
         >
           <l-tooltip>
             <div class="tooltip-content">
               <div>经度: {{ marker.lng }}</div>
               <div>纬度: {{ marker.lat }}</div>
-              <!-- <div>高度: {{ marker.height }}</div> -->
             </div>
           </l-tooltip></l-marker
         >
@@ -93,7 +92,7 @@ import {
 import { ElNotification } from "element-plus";
 import { useMapDataStore } from "@/stores/mapData";
 import { APIS } from "@/modules/request";
-import { doHttpRequest, getWebSocket } from "@/modules/request.js";
+import { doHttpRequest } from "@/modules/request.js";
 
 export default {
   name: "NewMapContainer",

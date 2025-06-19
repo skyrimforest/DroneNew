@@ -46,7 +46,6 @@ const masterApi = {
 
   GET_PACKET: ["GET", "decode/getpacketinfo"],
   DO_DECODE: ["POST", "decode/dodecode"],
-
 };
 
 const masterWebSocketApi = {

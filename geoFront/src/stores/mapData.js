@@ -4,10 +4,9 @@ import { ElNotification } from "element-plus";
 export const useMapDataStore = defineStore("mapData", {
   state: () => {
     return {
+      notificationDuration: 4000,
       droneData: [
-
       ],
-
       circleList: [],
       rectangleList: [],
       markerList: [],
@@ -24,6 +23,7 @@ export const useMapDataStore = defineStore("mapData", {
         rectangle_point_state2: "rectangle_point_state2",
         // 画标记的状态:该状态获取标记坐标
         marker_point_state: "marker_point_state",
+        marker_point_state_drone: "marker_point_state_drone",
       },
       // 全局绘图状态
       drawState: "not_drawing",
@@ -70,7 +70,7 @@ export const useMapDataStore = defineStore("mapData", {
       ElNotification({
         title: "开始绘图，请点击地图确定矩形左上角！",
         message: "点击取消按钮以放弃本次绘制",
-        duration: 5000,
+        duration: this.notificationDuration,
       });
       this.drawState = this.State.rectangle_point_state1;
     },
@@ -80,7 +80,7 @@ export const useMapDataStore = defineStore("mapData", {
       ElNotification({
         title: "开始绘图，请点击地图确定圆心！",
         message: "点击取消按钮以放弃本次绘制",
-        duration: 5000,
+        duration: this.notificationDuration,
       });
       this.drawState = this.State.circle_point_state1;
     },
@@ -95,9 +95,17 @@ export const useMapDataStore = defineStore("mapData", {
       ElNotification({
         title: "开始绘图，请点击地图确定控制器位置！",
         message: "点击取消按钮以放弃本次绘制",
-        duration: 5000,
+        duration: this.notificationDuration,
       });
       this.drawState = this.State.marker_point_state;
+    },
+    drawMarkerDrone() {
+      ElNotification({
+        title: "开始目标，请点击地图确定目标位置！",
+        message: "点击取消按钮以放弃本次绘制",
+        duration: this.notificationDuration,
+      });
+      this.drawState = this.State.marker_point_state_drone;
     },
     centerReturn() {
       console.log("return to center now");
@@ -113,7 +121,7 @@ export const useMapDataStore = defineStore("mapData", {
           ElNotification({
             title: "已确定圆心，下面请点击地图确定半径长度！",
             message: "点击取消按钮以放弃本次绘制",
-            duration: 5000,
+            duration: this.notificationDuration,
           });
           this.drawState = this.State.circle_point_state2;
           break;
@@ -131,7 +139,7 @@ export const useMapDataStore = defineStore("mapData", {
             title: "已确定圆形！",
             message:
               "中心:" + newCircle.center + "; 半径:" + newCircle.distance,
-            duration: 5000,
+            duration: this.notificationDuration,
           });
           this.drawState = this.State.not_drawing;
           break;
@@ -141,7 +149,7 @@ export const useMapDataStore = defineStore("mapData", {
           ElNotification({
             title: "已确定左上角，下面请点击地图确定右下角！",
             message: "点击取消按钮以放弃本次绘制",
-            duration: 5000,
+            duration: this.notificationDuration,
           });
           this.drawState = this.State.rectangle_point_state2;
           break;
@@ -163,30 +171,38 @@ export const useMapDataStore = defineStore("mapData", {
               newRectangle.bounds[0] +
               "; 右下角:" +
               newRectangle.bounds[1],
-            duration: 5000,
+            duration: this.notificationDuration,
           });
           this.drawState = this.State.not_drawing;
           break;
 
         case this.State.marker_point_state:
-          this.marker_point = event.latlng;
-          const newMarker = this.marker_point;
-          this.markerList.push(newMarker);
-          ElNotification({
-            title: "已确定标记！",
-            message: "标记坐标:" + newMarker,
-            duration: 5000,
-          });
-          this.drawState = this.State.not_drawing;
+          this.addMarker(event.latlng, 'landmark')
+          break;
+        case this.State.marker_point_state_drone:
+          this.addMarker(event.latlng, 'drone')
           break;
       }
     },
+    addMarker(coordinate, iconType) {
+      this.marker_point = coordinate;
+      const newMarker = this.marker_point;
+      const markerData = { marker: newMarker, iconType: iconType }
+      this.markerList.push(markerData);
+      ElNotification({
+        title: "已确定标记！",
+        message: "标记坐标:" + newMarker,
+        duration: this.notificationDuration,
+      });
+      this.drawState = this.State.not_drawing;
+    },
+
     cancelClick() {
       if (this.drawState != this.State.not_drawing) {
         ElNotification({
           title: "绘图已取消！",
           message: "状态缓存已清空",
-          duration: 5000,
+          duration: this.notificationDuration,
         });
         this.drawState = this.State.not_drawing;
       } else {

@@ -92,6 +92,12 @@
                   <Button
                     color="#00ffc6"
                     class="menu-action-button"
+                    @click="drawMarkerDrone"
+                    >目标预测</Button
+                  >
+                  <Button
+                    color="#00ffc6"
+                    class="menu-action-button"
                     @click="centerReturn"
                     >返回中心点</Button
                   >
@@ -151,7 +157,7 @@
                   <Button
                     color="#00ffc6"
                     class="menu-action-button"
-                    @click="jump2lie"
+                    @click="jump2trap"
                     >诱骗</Button
                   >
                   <Button
@@ -256,6 +262,9 @@ const drawRemove = () => {
 const drawMarker = () => {
   store.drawMarker();
 };
+const drawMarkerDrone = () => {
+  store.drawMarkerDrone();
+};
 const centerReturn = () => {
   store.centerReturn();
 };
@@ -299,11 +308,11 @@ const jump2disturb = () => {
   command.value = "干扰";
   router.replace({ name: "FuncDis" });
 };
-const jump2lie = () => {
+const jump2trap = () => {
   drawer.value = 1;
   command.value = "诱骗";
-  router.replace({ name: "FuncLie" });
-}
+  router.replace({ name: "FuncTrap" });
+};
 const jump2device = () => {
   drawer.value = 1;
   command.value = "设备管理";
