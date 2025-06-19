@@ -62,7 +62,6 @@ import AIResultBlock from "./AIResultBlock.vue";
 const store = useAIData();
 
 const getAIInfo = () => {
-  console.log("getAIInfo");
   store.getAIInfo();
 };
 </script>

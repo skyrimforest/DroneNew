@@ -4,7 +4,7 @@ import argparse
 import numpy as np
 import scipy.signal as signal
 import matplotlib.pyplot as plt
-from helpers import estimate_offset
+from geoMaster.utils.decoder.src.helpers import estimate_offset
 
 def find_packet_candidate_time(raw_data, Fs, debug=False, packet_type = "droneid", legacy = False):
     """Find packets with the right length by looking at signal power"""

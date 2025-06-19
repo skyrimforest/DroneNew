@@ -3,7 +3,8 @@ import os
 from datetime import datetime
 import geoMaster.BaseConfig as BaseConfig
 
-def ai_predict(file_path):
+def ai_predict(file_name):
+    file_path=BaseConfig.BIN_PATH+'/'+file_name
     return main(file_path)
 
 

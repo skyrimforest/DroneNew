@@ -10,7 +10,7 @@
             alt="Logo"
             class="logo-img"
           />
-          <div class="logo-title">察打一体无人机防御系统</div>
+          <div class="logo-title">无线可击·一体化无人机防御解决方案</div>
         </dv-border-box12>
       </ElHeader>
       <ElContainer>
@@ -147,6 +147,12 @@
                     class="menu-action-button"
                     @click="jump2disturb"
                     >干扰</Button
+                  >
+                  <Button
+                    color="#00ffc6"
+                    class="menu-action-button"
+                    @click="jump2lie"
+                    >诱骗</Button
                   >
                   <Button
                     color="#00ffc6"
@@ -293,6 +299,11 @@ const jump2disturb = () => {
   command.value = "干扰";
   router.replace({ name: "FuncDis" });
 };
+const jump2lie = () => {
+  drawer.value = 1;
+  command.value = "诱骗";
+  router.replace({ name: "FuncLie" });
+}
 const jump2device = () => {
   drawer.value = 1;
   command.value = "设备管理";

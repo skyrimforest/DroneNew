@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 import logging
-import BaseConfig
+import geoMaster.BaseConfig as BaseConfig
 
 
 def get_current_time():

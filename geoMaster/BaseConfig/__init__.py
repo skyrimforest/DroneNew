@@ -24,6 +24,7 @@ LOG_PATH = ROOT_DIR + '/loginfo'
 DB_PATH = ROOT_DIR + '/db'
 BIN_PATH=ROOT_DIR + '/utils/ASTGCN/dataset'
 AI_PIC_PATH = ROOT_DIR + '/utils/ASTGCN/test_images'
+DECODER_PATH = ROOT_DIR + '/utils/decoder/samples'
 
 
 # 启动参数

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
-from helpers import NCARRIERS, tfft
+from geoMaster.utils.decoder.src.helpers import NCARRIERS, tfft
 
 def zcsequence_t(u: int, seq_length: int, q: int=0) -> np.array:
     """

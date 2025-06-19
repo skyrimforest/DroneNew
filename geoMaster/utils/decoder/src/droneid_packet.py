@@ -1,7 +1,7 @@
 import struct
 import json
 import argparse
-import helpers
+import geoMaster.utils.decoder.src.helpers
 import crcmod
 
 DRONEID_MAX_LEN = 91

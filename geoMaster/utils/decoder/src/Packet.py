@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 from scipy import signal
-from zcsequence import zcsequence_f, zcsequence_t
-from helpers import corr, fshift, tfft, itfft, with_sample_offset, NFFT, MAXNCARRIERS, NCARRIERS, MAXNCARRIERS_c2, NCARRIERS_c2, CP_LENGTHS_legacy, ZC_SYMBOL_IDX_legacy, CP_LENGTHS, CP_LENGTHS_C2, ZC_SYMBOL_IDX, ZC_SYMBOL_IDX_c2
+from geoMaster.utils.decoder.src.zcsequence import zcsequence_f, zcsequence_t
+from geoMaster.utils.decoder.src.helpers import corr, fshift, tfft, itfft, with_sample_offset, NFFT, MAXNCARRIERS, NCARRIERS, MAXNCARRIERS_c2, NCARRIERS_c2, CP_LENGTHS_legacy, ZC_SYMBOL_IDX_legacy, CP_LENGTHS, CP_LENGTHS_C2, ZC_SYMBOL_IDX, ZC_SYMBOL_IDX_c2
 
 
 class Packet:

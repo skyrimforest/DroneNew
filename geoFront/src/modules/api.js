@@ -1,8 +1,16 @@
 const HTTP_PREFIX = "http";
 const WS_PREFIX = "ws";
-const DIS_URL_PREFIX = "://172.27.152.184:10002/";
+const DIS_URL_PREFIX = "://192.168.0.121:10002/";
 const MAP_URL_PREFIX = "://192.168.0.121:9999/";
-const MASTER_URL_PREFIX = "://172.27.152.184:10000/";
+const MASTER_URL_PREFIX = "://192.168.0.121:10000/";
+const OLLAMA_URL_PREFIX = "://localhost:11434/";
+
+
+const ollamaApi = {
+  GENERATE: ["POST", "api/generate"],
+  CHAT: ["POST", "api/chat"],
+};
+
 
 const disApi = {
   TEST: ["POST", "script/"],
@@ -35,6 +43,10 @@ const masterApi = {
   GET_BININFO: ["GET", "ai/getbininfo"],
   INFERREQ: ["POST", "ai/aipredict"],
   GET_PIC: ["GET", "ai/getpic"],
+
+  GET_PACKET: ["GET", "decode/getpacketinfo"],
+  DO_DECODE: ["POST", "decode/dodecode"],
+
 };
 
 const masterWebSocketApi = {
@@ -53,11 +65,15 @@ for (const i in mapApi) {
 for (const i in masterApi) {
   masterApi[i][1] = HTTP_PREFIX + MASTER_URL_PREFIX + masterApi[i][1];
 }
-
+for (const i in ollamaApi) {
+  ollamaApi[i][1] = HTTP_PREFIX + OLLAMA_URL_PREFIX + ollamaApi[i][1];
+}
 for (const i in masterWebSocketApi) {
   masterWebSocketApi[i] = WS_PREFIX + MASTER_URL_PREFIX + masterWebSocketApi[i];
 }
 
-const APIS = { ...disApi, ...mapApi, ...masterApi, ...masterWebSocketApi };
+
+
+const APIS = { ...disApi, ...mapApi, ...masterApi, ...masterWebSocketApi, ...ollamaApi };
 
 export default APIS;

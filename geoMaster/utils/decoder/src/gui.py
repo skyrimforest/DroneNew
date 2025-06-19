@@ -3,9 +3,9 @@ from matplotlib.widgets import Slider, Button
 
 import numpy as np
 import scipy.signal as signal
-from zcsequence import zcsequence_t, zcsequence_f
+from geoMaster.utils.decoder.src.zcsequence import zcsequence_t, zcsequence_f
 
-from helpers import CP_LENGTHS, NCARRIERS, ZC_SYMBOL_IDX
+from geoMaster.utils.decoder.src.helpers import CP_LENGTHS, NCARRIERS, ZC_SYMBOL_IDX
 
 def interactive(packet):
     fig, ax = plt.subplots(3, 3)

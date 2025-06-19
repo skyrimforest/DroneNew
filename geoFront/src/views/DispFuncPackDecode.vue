@@ -1,71 +1,71 @@
 <template>
   <div class="func-container">
-    <ElContainer>
-      <ElHeader>
+    <ElCard>
+      <!-- 头部区域 -->
+      <template #header>
         <dv-decoration7>
           <div color-white font-300>
-            <Button color="#615ea8" font-color="#615ea8" border="Border6">
-              报文解密</Button
+            <Button
+              color="#615ea8"
+              font-color="#615ea8"
+              border="Border6"
+              @click="getPacketInfo"
+              >采样报文</Button
             >
           </div>
-        </dv-decoration7></ElHeader
+        </dv-decoration7>
+      </template>
+      <!-- 脚本池区域 -->
+      <CommonBlock
+        v-for="(target, timestamp) in store.bindataList"
+        :key="timestamp"
+        :target="target"
+        title="采集结果"
+        operation="模型识别"
+        name="名称"
+        time="时间"
       >
-      <ElMain style="--el-main-padding: 0px; height: 100%">
-        <ElScrollbar>
-          <ElTable
-            :data="droneData"
-            style="width: 100%"
-            :row-class-name="tableRowClassName"
-          >
-            <ElTableColumn prop="test1" label="列1" width="180" />
-            <ElTableColumn prop="test2" label="列2" width="180" />
-            <ElTableColumn prop="lookInfo" label="查看详情">
-              <template #default="scope">
-                <el-button
-                  link
-                  type="primary"
-                  size="small"
-                  @click="handleClick(scope.$index)"
-                  >展示1</el-button
-                >
-                <el-button
-                  link
-                  type="primary"
-                  size="small"
-                  @click="handleClick(scope.$index)"
-                  >展示2</el-button
-                >
-              </template>
-            </ElTableColumn>
-            <ElTableColumn prop="test3" label="列3" width="180" />
-          </ElTable>
-        </ElScrollbar>
-      </ElMain>
-    </ElContainer>
+      </CommonBlock>
+    </ElCard>
+    <ElCard>
+      <!-- 头部区域 -->
+      <template #header>
+        <dv-decoration7>
+          <div color-white font-300>
+            <Button
+              color="#615ea8"
+              font-color="#615ea8"
+              border="Border6"
+              @click="getDecodeInfo"
+            >
+              解包数据查看
+            </Button>
+          </div>
+        </dv-decoration7>
+      </template>
+
+      <!-- 解包展示区 -->
+      <DecodeBlock
+        v-for="(target, timestamp) in store.decodeList"
+        :key="timestamp"
+        :target="target"
+        :title="`解包时间 ${timestamp}`"
+      />
+    </ElCard>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import CommonBlock from "./CommonBlock.vue";
+import { useAIData } from "@/stores/ai";
 import { Button } from "@kjgl77/datav-vue3";
+import AIResultBlock from "./AIResultBlock.vue";
+import DecodeBlock from "./DecodeBlock.vue";
+const store = useAIData();
 
-const droneData = [
-  {
-    test1: "test1",
-    test2: "test2",
-    test3: "test3",
-    lookInfo: "Tom",
-  },
-];
-function add_white() {
-  console.log("添加");
-}
-function export_white() {
-  console.log("导出");
-}
-function import_white() {
-  console.log("引入");
-}
+const getPacketInfo = () => {
+  console.log("getPacketInfo");
+  store.getPacketInfo();
+};
 </script>
-
 <style scoped src="../styles/dispbox.css"></style>

@@ -4,8 +4,8 @@ import argparse
 import bitarray
 
 import numpy as np
-from goldgen import gold
-from droneid_packet import DroneIDPacket
+from geoMaster.utils.decoder.src.goldgen import gold
+from geoMaster.utils.decoder.src.droneid_packet import DroneIDPacket
 
 # QPSK quadrant-to-symbol mapping for multiple rotations
 qpsk_to_bits = [[2, 3, 1, 0],
