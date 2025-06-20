@@ -6,9 +6,9 @@ import uvicorn
 # 引入命令行参数读取
 import argparse
 
-import BaseConfig
+import geoDisturber.BaseConfig as BaseConfig
 # 引入路由控件
-from controller import script_controller,trap_controller
+from geoDisturber.controller import script_controller,trap_controller
 
 app = FastAPI()
 app.include_router(script_controller.router)
@@ -51,7 +51,7 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)
+    uvicorn.run("geoDisturber.main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)
 
 
 

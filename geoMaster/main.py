@@ -8,9 +8,9 @@ import uvicorn
 # 引入命令行参数读取
 import argparse
 # 引入路由控件
-from controller import child_controller,ai_controller,zed_controller,decoder_controller
+from geoMaster.controller import child_controller,ai_controller,zed_controller,decoder_controller
 # 引入基本配置
-import BaseConfig
+import geoMaster.BaseConfig as BaseConfig
 
 # 引入zed通信服务组件
 from service import work_service
@@ -72,4 +72,4 @@ async def lifespan(app: FastAPI):
     # 关闭时执行
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)
+    uvicorn.run("geoMaster.main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)
