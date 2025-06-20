@@ -6,8 +6,8 @@
         <dv-decoration7>
           <div color-white font-300>
             <Button
-              color="#4d8dd9"
-              font-color="#4d8dd9"
+              color="#615ea8"
+              font-color="#615ea8"
               border="Border6"
               @click="getDecoyCommand"
             >
