@@ -9,7 +9,7 @@
 from geoMaster.utils import decoder_util
 # 引入日志
 from geoMaster.SkyLogger import get_logger
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 logger = get_logger("decoder_service")
 

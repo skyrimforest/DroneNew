@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 import logging
-import geoDisturber.BaseConfig as BaseConfig
+from geoDisturber.BaseConfig.base_config import BaseConfig
 
 
 def get_current_time():

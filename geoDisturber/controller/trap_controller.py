@@ -7,7 +7,7 @@
 '''
 import datetime
 
-import geoDisturber.BaseConfig as BaseConfig
+from geoDisturber.BaseConfig.base_config import BaseConfig
 from geoDisturber.SkyLogger import get_logger
 from fastapi import APIRouter
 from geoDisturber.schema.all_schema import CommandInfo, ScriptInfo

@@ -5,7 +5,7 @@
 @Author  ：Skyrim
 @Date    ：2024/11/21 9:59 
 '''
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 def get_drone_data_child():
     return []

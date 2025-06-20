@@ -8,7 +8,7 @@ from geoDisturber.SkyLogger import get_logger
 # 信息传输类
 from geoDisturber.schema.all_schema import CommandInfo
 # 根路径
-import geoDisturber.BaseConfig as BaseConfig
+from geoDisturber.BaseConfig.base_config import BaseConfig
 # yaml配置格式读取
 import yaml
 

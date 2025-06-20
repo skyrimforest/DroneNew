@@ -9,7 +9,7 @@ from geoMaster.utils.decoder.src import droneid_receiver_offline
 import argparse
 import os
 from datetime import datetime
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 def decoder_offline(file_name):
     file_path=BaseConfig.DECODER_PATH+"/"+file_name

@@ -6,7 +6,7 @@ import requests
 # 引入日期
 import datetime
 # 引入基本配置
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 # 引入子节点信息类型
 from geoMaster.schema.all_schema import ChildInfo, PureInfo, CommGlobalPara
 # 引入child数据库操作

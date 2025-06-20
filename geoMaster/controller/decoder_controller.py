@@ -8,7 +8,7 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 from geoMaster.SkyLogger import get_logger
 from geoMaster.service import decoder_service
 from geoMaster.schema.all_schema import PureInfo

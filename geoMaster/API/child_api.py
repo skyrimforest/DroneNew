@@ -1,4 +1,4 @@
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 # PREFIX='http://' + BaseConfig.PARENT_IP + ':' + str(BaseConfig.PARENT_PORT)
 

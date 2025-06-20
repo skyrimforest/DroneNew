@@ -6,7 +6,7 @@ import uvicorn
 # 引入命令行参数读取
 import argparse
 
-import geoDisturber.BaseConfig as BaseConfig
+from geoDisturber.BaseConfig.base_config import BaseConfig
 # 引入路由控件
 from geoDisturber.controller import script_controller,trap_controller
 

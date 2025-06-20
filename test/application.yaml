@@ -1,10 +1,10 @@
 config:
     front:
-        name: geoFront
-        DIS_URL_PREFIX: "://192.168.0.121:10002/";
-        MAP_URL_PREFIX: "://192.168.0.121:9999/";
-        MASTER_URL_PREFIX: "://172.27.152.184:10000/";
-        OLLAMA_URL_PREFIX: "://localhost:11434/";
+      name: "geoFront"
+      DIS_URL_PREFIX: "://192.168.0.121:10002/"
+      MAP_URL_PREFIX: "://192.168.0.121:9999/"
+      MASTER_URL_PREFIX: "://172.27.152.184:10000/"
+      OLLAMA_URL_PREFIX: "://localhost:11434/"
 
     modules:
     - geoDisturber:

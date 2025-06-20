@@ -2,7 +2,7 @@
 import time
 from typing import Optional
 
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 from geoMaster.schema.all_schema import ZedOrderSET, ZedOrderNED, Task, PureInfo
 from geoMaster.service import zed_service, child_service
 from geoMaster.utils import tdoa_tools_main as local_service, global_params, do_fft_memory

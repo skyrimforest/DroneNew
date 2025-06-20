@@ -1,4 +1,4 @@
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 import json
 

@@ -2,7 +2,7 @@
 # 用于遍历
 import os
 # 获取项目路径
-import geoDisturber.BaseConfig as BaseConfig
+from geoDisturber.BaseConfig.base_config import BaseConfig
 # 用于正则匹配
 import re
 def delete_grc(dir_name):

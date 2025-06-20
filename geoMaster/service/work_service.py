@@ -1,7 +1,7 @@
 ﻿# 主站的控制链路，负责与子站和zed交互
 import time
 
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 from geoMaster.schema.all_schema import CommGlobalPara, ChildInfo
 from geoMaster.service import child_service, zed_service, state_service
 

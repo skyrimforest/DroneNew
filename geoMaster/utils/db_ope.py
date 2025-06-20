@@ -2,7 +2,7 @@
 
 import sqlite3
 import geoMaster.schema
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 # 创建新的连接与游标
 def get_cursor(dbname):

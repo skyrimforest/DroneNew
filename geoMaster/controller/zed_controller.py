@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 from geoMaster.SkyLogger import get_logger
 from geoMaster.service import zed_service
 

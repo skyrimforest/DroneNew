@@ -15,7 +15,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from geoMaster.SkyLogger import get_logger
 
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 logger = get_logger("fft_memory")
 

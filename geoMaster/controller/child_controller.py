@@ -5,7 +5,7 @@ from geoMaster.SkyLogger import get_logger
 from geoMaster.service import child_service
 from geoMaster.schema.all_schema import ChildInfo, PureInfo
 from geoMaster.utils import global_params
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 router = APIRouter(
     prefix="/child",

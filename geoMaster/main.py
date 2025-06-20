@@ -10,7 +10,7 @@ import argparse
 # 引入路由控件
 from geoMaster.controller import child_controller,ai_controller,zed_controller,decoder_controller
 # 引入基本配置
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 
 # 引入zed通信服务组件
 from geoMaster.service import work_service

@@ -8,7 +8,7 @@ import time
 
 import select
 
-import geoMaster.BaseConfig as BaseConfig
+from geoMaster.BaseConfig.base_config import BaseConfig
 from geoMaster.SkyLogger import get_logger
 from geoMaster.schema.all_schema import CommGlobalPara
 from geoMaster.utils import do_fft_memory, global_params, tdoa_tools_main, resolve_file, tcp_client_memory
