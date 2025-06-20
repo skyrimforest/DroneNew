@@ -3,9 +3,9 @@
 import socket
 import time
 import datetime
-from SkyLogger import get_logger
+from geoMaster.SkyLogger import get_logger
 
-from utils import do_fft_memory
+from geoMaster.utils import do_fft_memory
 
 logger = get_logger("tcp_client")
 

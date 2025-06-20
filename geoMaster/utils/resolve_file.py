@@ -1,4 +1,5 @@
-import BaseConfig
+import geoMaster.BaseConfig as BaseConfig
+
 import json
 
 

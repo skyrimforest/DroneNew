@@ -8,7 +8,7 @@
 
 import threading
 import queue
-from schema import all_schema
+from geoMaster.schema import all_schema
 
 # 为了与http服务建立联系,需要在此设置全局变量
 

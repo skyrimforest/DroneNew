@@ -13,9 +13,9 @@ import time
 
 import numpy as np
 from matplotlib import pyplot as plt
-from SkyLogger import get_logger
+from geoMaster.SkyLogger import get_logger
 
-import BaseConfig
+import geoMaster.BaseConfig as BaseConfig
 
 logger = get_logger("fft_memory")
 

@@ -13,7 +13,7 @@ from geoMaster.controller import child_controller,ai_controller,zed_controller,d
 import geoMaster.BaseConfig as BaseConfig
 
 # 引入zed通信服务组件
-from service import work_service
+from geoMaster.service import work_service
 
 app = FastAPI()
 app.include_router(child_controller.router)
