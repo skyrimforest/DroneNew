@@ -153,14 +153,15 @@ export default {
       icon: null,
       layerList: [
         {
-          name: "经典款地图",
-          layer_url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        },
-        {
           name: "谷歌款卫星地图",
           layer_url:
             "//www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}",
         },
+        {
+          name: "经典款地图",
+          layer_url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        },
+
         // 缩放只到12,空间需要太多了
         {
           name: "高德离线中国卫星图",

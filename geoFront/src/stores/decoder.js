@@ -17,8 +17,8 @@ export const useDecoderData = defineStore("decode", {
   },
   actions: {
     // 可以通过actions 方法，改变 state 里面的值。
-    getAIInfo() {
-      doHttpRequest("GET_BININFO").then((res) => {
+    getPacketInfo() {
+      doHttpRequest("GET_PACKET").then((res) => {
         this.bindataList = res.data.filelist;
       });
     },

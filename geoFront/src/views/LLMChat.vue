@@ -26,7 +26,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-
+import {doHttpRequest} from "../modules/request";
 const input = ref("");
 const messages = ref([
   { role: "assistant", content: "你好，我是本地 AI 模型，有什么可以帮你？" },

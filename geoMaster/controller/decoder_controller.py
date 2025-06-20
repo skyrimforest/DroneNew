@@ -31,7 +31,7 @@ async def drone_decoder(someinfo: PureInfo):
     print(res)
     return {
         "success": True,
-        "infer": res
+        "decode": res
     }
 
 # 获取采集到的文件的信息

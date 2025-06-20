@@ -1,0 +1,18 @@
+geoDisturber:
+  enable: true
+  host: "127.0.0.1"
+  port: 8001
+  entry: "geoDisturber.app:app"
+
+geoFront:
+  enable: true
+  host: "127.0.0.1"
+  port: 8002
+  entry: "geoFront.app:app"
+
+geoMaster:
+  enable: true
+  host: "127.0.0.1"
+  port: 8000
+  entry: "geoMaster.app:app"
+  mode: "frontend"  # 可选字段，供 geoMaster 内部判断

@@ -34,8 +34,7 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted, onUpdated } from "vue";
-import { useDisturbData } from "@/stores/disturb";
+import { toRefs, onMounted, onUpdated } from "vue";
 const props = defineProps({
   target: Object,
 });

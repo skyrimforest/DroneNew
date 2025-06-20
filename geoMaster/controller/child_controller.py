@@ -36,12 +36,6 @@ async def heart_beat():
 @router.post("/nodeinfo")
 async def heart_beat():
     pass
-    # node_list=child_service.get_connected_child_info()
-    # return {
-    #     "success": True,
-    #     "timestamp": timestamp,
-    #     "childlist":child_list
-    # }
 
 @router.post("/recvinfo")
 async def recv_info(someinfo: PureInfo):
