@@ -7,6 +7,8 @@
 '''
 import os
 import socket
+from registry.registry import register_component
+
 def get_host_ip():
     """
     查询本机ip地址
@@ -24,6 +26,7 @@ def get_host_ip():
 # 本机名称
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
+@register_component("geoDisturber.BaseConfig")
 class BaseConfig:
     # 被动态设置的参数
     HOST_NAME: socket.gethostname()  # 自动从 socket.gethostname() 获取

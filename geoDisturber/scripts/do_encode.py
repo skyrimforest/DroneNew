@@ -1,6 +1,7 @@
 import os
 import re
-import BaseConfig
+from geoDisturber.BaseConfig.base_config import BaseConfig
+
 import py_compile
 
 def pyc_encode_scripts(dir_name):
