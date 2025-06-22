@@ -1,28 +1,34 @@
 import os
+import json
 import signal
 from pathlib import Path
 
 RUNTIME_DIR = Path(".runtime")
 
-def stop_all():
-    if not RUNTIME_DIR.exists():
-        print("[-] 没有运行时信息，系统可能未启动。")
+def stop_process_by_name(name: str):
+    pid_file = RUNTIME_DIR / f"pid_{name}.txt"
+    if not pid_file.exists():
+        print(f"[Stop] ✖️ PID 文件不存在: {pid_file}")
         return
 
-    for pid_file in RUNTIME_DIR.glob("pid_*.txt"):
-        try:
-            with open(pid_file, "r") as f:
-                pid = int(f.read().strip())
-            os.kill(pid, signal.SIGTERM)
-            print(f"[x] 已停止进程 {pid} ({pid_file.stem.replace('pid_', '')})")
-        except ProcessLookupError:
-            print(f"[!] 找不到进程 {pid}，可能已退出")
-        except Exception as e:
-            print(f"[!] 停止进程失败: {e}")
-        finally:
-            pid_file.unlink()
+    try:
+        with open(pid_file, "r", encoding="utf-8") as f:
+            info = json.load(f)
+            pid = info["pid"]
 
-    RUNTIME_DIR.rmdir()
+        print(f"[Stop] 尝试关闭模块 {name}（PID: {pid}）...")
 
-if __name__ == "__main__":
-    stop_all()
+        # 终止进程
+        os.kill(pid, signal.SIGTERM)  # Windows/macOS/Linux 都支持
+        print(f"[Stop] ✅ 模块 {name} 已关闭。")
+
+        # 删除 PID 文件
+        pid_file.unlink()
+
+    except ProcessLookupError:
+        print(f"[Stop] ⚠️ 进程 PID {pid} 不存在，可能已退出。")
+        pid_file.unlink()
+
+    except Exception as e:
+        print(f"[Stop] ❌ 关闭模块 {name} 时出错: {e}")
+
