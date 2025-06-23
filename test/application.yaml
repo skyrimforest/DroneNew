@@ -9,7 +9,7 @@ config:
     modules:
       geoDisturber:
         enable: true
-        entry: "geoDisturber.app:app"
+        entry: "geoDisturber.main:app"
 
         # 被动态设置的参数
         HOST_NAME: "__auto__"    # 自动从 socket.gethostname() 获取
@@ -35,7 +35,7 @@ config:
 
       geoMaster:
         enable: true
-        entry: "geoDisturber.app:app"
+        entry: "geoDisturber.main:app"
 
         # 系统路径
         LOG_PATH: "loginfo"
@@ -81,5 +81,5 @@ config:
       geoMap:
         enable: false
         port: 8001
-        entry: "geoDisturber.app:app"
+        entry: "geoMap.main:app"
 

@@ -1,9 +1,9 @@
 const HTTP_PREFIX = "http";
 const WS_PREFIX = "ws";
-const DIS_URL_PREFIX = "://192.168.0.121:10002/";
-const MAP_URL_PREFIX = "://192.168.0.121:9999/";
-const MASTER_URL_PREFIX = "://172.27.152.184:10000/";
-const OLLAMA_URL_PREFIX = "://localhost:11434/";
+const DIS_URL_PREFIX = import.meta.env.VITE_DIS_URL_PREFIX || "://localhost:10002/";
+const MAP_URL_PREFIX = import.meta.env.VITE_MAP_URL_PREFIX || "://localhost:9999/";
+const MASTER_URL_PREFIX = import.meta.env.VITE_MASTER_URL_PREFIX || "://localhost:10000/";
+const OLLAMA_URL_PREFIX = import.meta.env.VITE_OLLAMA_URL_PREFIX || "://localhost:11434/";
 
 const ollamaApi = {
   GENERATE: ["POST", "api/generate"],

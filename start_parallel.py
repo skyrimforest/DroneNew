@@ -31,59 +31,6 @@ def get_host_ip():
 
     return ip
 
-
-def strip_ansi_codes(text: str) -> str:
-    ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
-    return ansi_escape.sub('', text)
-
-
-def capture_initial_output(process, name, max_lines=10):
-    lines = []
-    for _ in range(max_lines):
-        line = process.stdout.readline()
-        if not line:
-            break
-        decoded = line.decode(errors="ignore").strip()
-        clean_line = strip_ansi_codes(decoded)
-        lines.append(clean_line)
-    print(f"\n[Init Output] {name} 启动信息:")
-    for l in lines:
-        print(f"[{name}] {l}")
-    print()
-    return lines
-
-
-def extract_urls_from_lines(lines):
-    """
-    从字符串列表中提取所有 URL。
-
-    :param lines: List[str] - 每个元素是日志或输出中的一行
-    :return: List[str] - 提取出的所有 URL（不重复）
-    """
-    url_pattern = re.compile(
-        r'https?://[^\s"\']+|//[^\s"\']+'  # 匹配 http/https 或协议相对路径
-    )
-
-    urls = []
-    for line in lines:
-        matches = url_pattern.findall(line)
-        urls.extend(matches)
-
-    # 可选：去重 & 排序
-    return sorted(set(urls))
-
-
-def write_process_metadata(name, pid, meta: dict):
-    metadata = {
-        "pid": pid,
-        "name": name,
-        "start_time": datetime.now().isoformat(),
-        **meta  # 例如 type, cwd, command 等
-    }
-    with open(RUNTIME_DIR / f"pid_{name}.txt", "w", encoding="utf-8") as f:
-        json.dump(metadata, f, indent=2)
-
-
 def load_config(config_file="application.yaml"):
     """
     解析配置,存储在为字典
@@ -141,20 +88,8 @@ def construct_baseconfig():
     print("[Construct] ✅ BaseConfig fields updated with global_config.")
 
 
-def construct_env():
-    global global_config
-    front_config= global_config['front']
-    env_lines = [
-        f'VITE_DIS_URL_PREFIX={front_config.get("DIS_URL_PREFIX", "")}',
-        f'VITE_MAP_URL_PREFIX={front_config.get("MAP_URL_PREFIX", "")}',
-        f'VITE_MASTER_URL_PREFIX={front_config.get("MASTER_URL_PREFIX", "")}',
-        f'VITE_OLLAMA_URL_PREFIX={front_config.get("OLLAMA_URL_PREFIX", "")}',
-    ]
-    env_path = Path(ROOT_DIR) / front_config["name"] / ".env"
-    env_path.write_text("\n".join(env_lines), encoding="utf-8")
-    print(f"[Env] ✅ .env 文件已生成: {env_path}")
-
 def start_single_uvicorn(entry, host, port, name=None):
+    print(f"[Create] [+] 启动模块: {name} -> http://{host}:{port}")
 
     cmd = [
         "uvicorn",
@@ -164,6 +99,7 @@ def start_single_uvicorn(entry, host, port, name=None):
         "--reload"
     ]
     process_name = f"[{name}]" if name else ""
+    print(f"{process_name} ➤ Running command: {' '.join(cmd)}")
 
     process = subprocess.Popen(
         cmd,
@@ -171,37 +107,18 @@ def start_single_uvicorn(entry, host, port, name=None):
         stderr=subprocess.STDOUT
     )
 
-    # 捕获前几行输出
-    output_lines = capture_initial_output(process, name, 5)
-
-    # 写入元信息
-    write_process_metadata(
-        name=name,
-        pid=process.pid,
-        meta={
-            "type": "uvicorn",
-            "entry": entry,
-            "host": host,
-            "port": port,
-            "command": " ".join(cmd),
-            "output_preview": output_lines
-        }
-    )
-
     print(f"[Create] {entry} created successfully (PID: {process.pid})")
 
 
 def start_uvicorn():
     global global_config
-    modules_config = global_config.get("modules", {})
-    for name, settings in modules_config.items():
+
+    for name, settings in global_config.items():
         if settings.get("enable", False):
             entry = settings["entry"]
-            if settings.get("HOST_IP", None) == '__auto__':
-                host = global_config['PC']["HostIP"]
-            else:
-                host = settings['HOST_IP']
-            port = settings['HOST_PORT']
+            host = settings.get("host", "127.0.0.1")
+            port = settings.get("port", 8000)
+
             print(f"[Create] Launching {name} at {host}:{port} -> {entry}")
 
             start_single_uvicorn(
@@ -213,39 +130,23 @@ def start_uvicorn():
 
     print(f"[Create] ✅ All uvicorn modules started successfully.")
 
-
 def start_front():
-    global global_config, ROOT_DIR
+    global global_config,ROOT_DIR
 
     front_config = global_config.get('front', {})
     print(f"[Create] [+] 启动前端模块: {front_config.get('name')}")
 
-    command = ["npm", "run", "dev"]
+    command=["npm", "run", "dev"]
     # 启动前端开发服务（如 vite、vue-cli）
     process = subprocess.Popen(
         command,
-        cwd=ROOT_DIR + f"/{front_config.get('name')}",
+        cwd=ROOT_DIR+f"/{front_config.get('name')}",
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         shell=True
     )
 
-    res = capture_initial_output(process, front_config.get('name'), max_lines=10)
-    extract_urls_from_lines(res)
-    print(res)
-    write_process_metadata(
-        name=front_config.get('name'),
-        pid=process.pid,
-        meta={
-            "type": "vue",
-            "cwd": ROOT_DIR + f"/{front_config.get('name')}",
-            "command": command
-        }
-    )
-
     print(f"[Create] 前端模块 {front_config.get('name')} 启动成功...")
-    return res
-
 
 def bootstrap(config_file="application.yaml"):
     """
@@ -260,7 +161,6 @@ def bootstrap(config_file="application.yaml"):
     print("[Bootstrap] Scan package and construct components...")
     scan_and_register()
     construct_baseconfig()
-    construct_env()
 
     # ---------- 创建组件 ----------
     print("[Bootstrap] Scanning and starting components...")
