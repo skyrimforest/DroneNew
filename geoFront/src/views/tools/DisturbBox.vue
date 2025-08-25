@@ -307,4 +307,4 @@ const handleClickStop = (aindex, row, index) => {
 };
 </script>
 
-<style scoped src="../styles/disturbbox.css"></style>
+<style scoped src="../../styles/disturbbox.css"></style>

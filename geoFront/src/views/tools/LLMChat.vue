@@ -4,8 +4,8 @@
       <div v-for="(msg, i) in messages" :key="i" :class="msg.role">
         <template v-if="msg.role === 'assistant'">
           <div v-if="msg.think" class="think">
-            🤖 <strong>AI 思考：</strong><br />
-            <pre>{{ msg.think }}</pre>
+            🤖 <strong>AI 思考：</strong><br/>
+            <div class="think-content">{{ msg.think }}</div>
           </div>
           <div class="reply">
             💬 <strong>AI 回复：</strong>{{ msg.content }}
@@ -17,25 +17,26 @@
       </div>
     </div>
     <div class="input-area">
-      <input v-model="input" @keyup.enter="send" placeholder="请输入消息..." />
+      <input v-model="input" @keyup.enter="send" placeholder="请输入消息..."/>
       <button @click="send">发送</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
 import axios from "axios";
-import {doHttpRequest} from "../modules/request";
+import {doHttpRequest} from "../../modules/request";
+
 const input = ref("");
 const messages = ref([
-  { role: "assistant", content: "你好，我是本地 AI 模型，有什么可以帮你？" },
+  {role: "assistant", content: "你好，我是本地 AI 模型，有什么可以帮你？"},
 ]);
 
 const send = async () => {
   if (!input.value.trim()) return;
   const userMsg = input.value.trim();
-  messages.value.push({ role: "user", content: userMsg });
+  messages.value.push({role: "user", content: userMsg});
   input.value = "";
 
   try {
@@ -47,13 +48,12 @@ const send = async () => {
       })),
       stream: false,
     }).then((res) => {
-      messages.value.push(...res.data);
+      console.log(res.data.message.content)
+      const raw = res.data.message.content || "";
+      const {think, reply} = extractThinkAndReply(raw);
+      messages.value.push({role: "assistant", content: reply, think});
     });
 
-    const raw = res.data.message.content || "";
-    const { think, reply } = extractThinkAndReply(raw);
-
-    messages.value.push({ role: "assistant", content: reply, think });
   } catch (err) {
     console.error(err);
     messages.value.push({
@@ -68,7 +68,7 @@ function extractThinkAndReply(rawText) {
   const thinkMatch = rawText.match(/<think>([\s\S]*?)<\/think>/i);
   const think = thinkMatch ? thinkMatch[1].trim() : null;
   const reply = rawText.replace(/<think>[\s\S]*?<\/think>/i, "").trim();
-  return { think, reply };
+  return {think, reply};
 }
 </script>
 
@@ -80,40 +80,55 @@ function extractThinkAndReply(rawText) {
   border: 1px solid #ccc;
   border-radius: 8px;
 }
+
 .messages {
   max-height: 400px;
   overflow-y: auto;
   margin-bottom: 1rem;
 }
+
 .user {
   text-align: right;
   color: #409eff;
 }
+
 .assistant {
   text-align: left;
   color: #00ffc6;
 }
+
 .think {
   font-style: italic;
   background: #393939;
   border-left: 4px solid #ccc;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  white-space: pre-wrap;
+  white-space: pre-wrap; /* 保留换行 + 自动换行 */
+  word-wrap: break-word; /* 旧属性，保证长词换行 */
+  overflow-wrap: anywhere; /* 新属性，更强的换行能力 */
   line-height: 1.5;
+}
+
+.think-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 .reply {
   margin-bottom: 1rem;
 }
+
 .input-area {
   display: flex;
   gap: 0.5rem;
 }
+
 input {
   flex: 1;
   padding: 0.5rem;
 }
+
 button {
   padding: 0.5rem 1rem;
 }

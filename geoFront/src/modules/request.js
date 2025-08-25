@@ -16,6 +16,11 @@ const getWsUrl = (api) => {
     return APIS[api];
 }
 
+const getSSEUrl = (api) => {
+    return APIS[api][1];
+}
+
+
 const doHttpRequest = (api, data) => {
     const [method, url] = getApiUrl(api);
     switch (method) {
@@ -35,9 +40,29 @@ const getWebSocket = (api, data) => {
 }
 
 
+const createSSE = (api, onMessage, onError) => {
+    const eventSource = new EventSource(getSSEUrl(api));
+
+    eventSource.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            onMessage && onMessage(data);
+        } catch (e) {
+            console.error("SSE 数据解析失败:", e, event.data);
+        }
+    };
+
+    eventSource.onerror = (err) => {
+        console.error("SSE 连接出错:", err);
+        onError && onError(err);
+    };
+
+    return eventSource;
+}
+
 const showInfo = () => {
     console.log(APIS)
 }
 
-export { APIS, showInfo, doHttpRequest, getWebSocket, getApiUrl }
+export {APIS, showInfo, doHttpRequest, createSSE, getWebSocket, getApiUrl}
 

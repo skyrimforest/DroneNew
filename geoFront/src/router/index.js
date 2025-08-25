@@ -5,6 +5,7 @@ import DispFuncEvent from "../views/DispFuncEvent.vue";
 import DispFuncAI from "../views/DispFuncAI.vue";
 import DispFuncDev from "../views/DispFuncDev.vue";
 import DispFuncSta from "../views/DispFuncSta.vue";
+import DispFuncStaNew from "../views/DispFuncStaNew.vue";
 import DispFuncDis from "../views/DispFuncDis.vue";
 import DispFuncTrap from "../views/DispFuncTrap.vue";
 import DispFuncUser from "../views/DispFuncUser.vue";
@@ -45,6 +46,11 @@ const router = createRouter({
           path: "/main/sta",
           name: "FuncSta",
           component: DispFuncSta,
+        },
+        {
+          path: "/main/stanew",
+          name: "FuncStaNew",
+          component: DispFuncStaNew,
         },
         {
           path: "/main/dis",

@@ -55,10 +55,10 @@
 </template>
 
 <script setup>
-import CommonBlock from "./CommonBlock.vue";
+import CommonBlock from "./tools/CommonBlock.vue";
 import { useAIData } from "@/stores/ai";
 import { Button } from "@kjgl77/datav-vue3";
-import AIResultBlock from "./AIResultBlock.vue";
+import AIResultBlock from "./tools/AIResultBlock.vue";
 import { doHttpRequest } from "@/modules/request.js";
 import APIS from "@/modules/api.js";
 

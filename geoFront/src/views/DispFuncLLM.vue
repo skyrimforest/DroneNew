@@ -16,11 +16,11 @@
 </template>
 
 <script setup>
-import CommonBlock from "./CommonBlock.vue";
+import CommonBlock from "./tools/CommonBlock.vue";
 import { useAIData } from "@/stores/ai";
 import { Button } from "@kjgl77/datav-vue3";
-import AIResultBlock from "./AIResultBlock.vue";
-import LLMChat from "./LLMChat.vue";
+import AIResultBlock from "./tools/AIResultBlock.vue";
+import LLMChat from "./tools/LLMChat.vue";
 const store = useAIData();
 
 const getAIInfo = () => {

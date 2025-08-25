@@ -13,11 +13,8 @@ from geoMaster.SkyLogger import get_logger
 from geoMaster.schema.all_schema import CommGlobalPara
 from geoMaster.utils import do_fft_memory, global_params, tdoa_tools_main, resolve_file, tcp_client_memory
 
-# import child_service
-# from child_service import get_x_y_from_child, get_drone_from_child
 
 logger = get_logger("zed_service")
-
 
 def get_marker_list():
     file_path = BaseConfig.DB_PATH + '/current_result.txt'

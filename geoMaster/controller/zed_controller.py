@@ -36,7 +36,6 @@ async def get_frequency():
 @router.get("/marker")
 async def get_marker():
     target_list = zed_service.get_marker_list()
-    print(target_list)
     return {
         "success":True,
         "data": target_list

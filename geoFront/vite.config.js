@@ -1,20 +1,22 @@
-import { fileURLToPath, URL } from 'node:url'
+import {fileURLToPath, URL} from 'node:url'
+import path from 'path'
 
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [
-    vue(),
-  ],
-  server: {
-    historyApiFallback: true,
-    host: '0.0.0.0', // 允许所有主机名访问
-    port: 5173,
-  },
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    }
-  },
+    plugins: [
+        vue(),
+    ],
+    server: {
+        historyApiFallback: true,
+        host: '0.0.0.0', // 允许所有主机名访问
+        port: 5173,
+    },
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            'assets': path.resolve(__dirname, 'src/assets')
+        }
+    },
 })

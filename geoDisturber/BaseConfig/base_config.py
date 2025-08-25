@@ -9,6 +9,7 @@ import os
 import socket
 from registry.registry import register_component
 
+
 def get_host_ip():
     """
     查询本机ip地址
@@ -23,14 +24,15 @@ def get_host_ip():
 
     return ip
 
-# 本机名称
+
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+
 
 @register_component("geoDisturber.BaseConfig")
 class BaseConfig:
     # 被动态设置的参数
-    HOST_NAME: socket.gethostname()  # 自动从 socket.gethostname() 获取
-    HOST_IP: get_host_ip()  # 自动从 get_host_ip() 获取，如需固定填入 "192.168.x.x"
+    HOST_NAME = socket.gethostname()  # 自动从 socket.gethostname() 获取
+    HOST_IP = get_host_ip()  # 自动从 get_host_ip() 获取，如需固定填入 "192.168.x.x"
     # HOST_IP = "192.168.1.200"
     # 自己的PROT
     HOST_PORT = 10002
@@ -43,3 +45,7 @@ class BaseConfig:
     TARGET_SCRIPTS_PATH = 'My_test'
     # 目标脚本配置文件
     CONFIG_FILE = TARGET_SCRIPTS_PATH
+
+
+if __name__ == '__main__':
+    print(BaseConfig.HOST_NAME)

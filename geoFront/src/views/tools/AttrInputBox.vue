@@ -42,7 +42,7 @@ import { ElRow, ElCol, ElDialog, ElButton, ElInput } from "element-plus";
 import axios from "axios";
 import APIS from "@/modules/api";
 import { doHttpRequest } from "@/modules/request";
-import { useStore } from "@/stores/index";
+import { useStore } from "@/stores";
 
 export default {
   name: "AttrInputBox",

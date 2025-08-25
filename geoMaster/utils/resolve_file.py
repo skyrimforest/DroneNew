@@ -43,6 +43,6 @@ def parse_json(file_path):
         print("JSON 数据格式有误，请检查。")
 
 
-if __name__ == "__main__":
-    file_path = BaseConfig.DB_PATH + '/current_result.txt'
-    print(parse_json(file_path))
+# if __name__ == "__main__":
+#     file_path = BaseConfig.DB_PATH + '/current_result.txt'
+#     print(parse_json(file_path))

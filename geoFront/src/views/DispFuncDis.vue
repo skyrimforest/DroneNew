@@ -14,7 +14,6 @@
             >
           </div>
         </dv-decoration7>
-        <!-- <ElButton @click="getCommandInfo">获取干扰命令</ElButton> -->
       </template>
       <!-- 脚本池区域 -->
       <ScriptBlock
@@ -34,8 +33,8 @@
 </template>
 
 <script setup>
-import DisturbBox from "./DisturbBox.vue";
-import ScriptBlock from "./ScriptBlock.vue";
+import DisturbBox from "./tools/DisturbBox.vue";
+import ScriptBlock from "./tools/ScriptBlock.vue";
 import { Button } from "@kjgl77/datav-vue3";
 
 import { useDisturbData } from "@/stores/disturb";

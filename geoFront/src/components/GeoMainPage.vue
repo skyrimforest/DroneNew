@@ -112,12 +112,6 @@
                   </Button>
                 </template>
                 <ElMenuItemGroup>
-                  <!-- <Button
-                    color="#00ffc6"
-                    class="menu-action-button"
-                    @click="jump2event"
-                    >事件展示</Button
-                  > -->
                   <Button
                     color="#00ffc6"
                     class="menu-action-button"
@@ -130,12 +124,6 @@
                     @click="jump2ai"
                     >AI学习</Button
                   >
-                  <!-- <Button
-                    color="#00ffc6"
-                    class="menu-action-button"
-                    @click="jump2white"
-                    >报文解密</Button
-                  > -->
                   <Button
                     color="#00ffc6"
                     class="menu-action-button"
@@ -210,8 +198,8 @@
 
 <script setup>
 // 地图选型
-import NewMapContainer from "../views/NewMapComTrans.vue";
-import Draggable from "../views/Draggable.vue";
+import NewMapContainer from "../views/tools/NewMapComTrans.vue";
+import Draggable from "../views/tools/Draggable.vue";
 
 import { ref, onMounted } from "vue";
 
@@ -301,7 +289,7 @@ const jump2decode = () => {
 const jump2statis = () => {
   drawer.value = 1;
   command.value = "统计";
-  router.replace({ name: "FuncSta" });
+  router.replace({ name: "FuncStaNew" });
 };
 const jump2disturb = () => {
   drawer.value = 1;

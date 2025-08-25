@@ -36,8 +36,8 @@
 
 <script setup>
 import { Button } from "@kjgl77/datav-vue3";
-import ScriptBlock from "./ScriptBlock.vue";
-import DecoyBox from "./DecoyBox.vue";
+import ScriptBlock from "./tools/ScriptBlock.vue";
+import DecoyBox from "./tools/DecoyBox.vue";
 
 import { useDecoyData } from "@/stores/decoy";
 const store = useDecoyData();

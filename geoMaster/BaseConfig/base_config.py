@@ -95,3 +95,7 @@ class BaseConfig:
     # 子对主
     INS_ERROR = "CASE:0:ERROR"  # 错误上报
     INS_WAIT = "CASE:1:WAITING"  # 等待响应
+
+
+if __name__ == '__main__':
+    print(BaseConfig.HOST_IP)

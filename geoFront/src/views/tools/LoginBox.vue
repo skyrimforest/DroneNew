@@ -119,7 +119,7 @@
 import { BorderBox8 } from "@kjgl77/datav-vue3";
 import { ElRow, ElCol, ElNotification } from "element-plus";
 import { doHttpRequest } from "@/modules/request";
-import { useStore } from "@/stores/index";
+import { useStore } from "@/stores";
 import gsap from "gsap";
 import { ref, nextTick } from "vue";
 import { useRouter } from "vue-router";
@@ -240,4 +240,4 @@ export default {
 };
 </script>
 
-<style src="../styles/loginbox.css" scoped></style>
+<style src="../../styles/loginbox.css" scoped></style>

@@ -15,7 +15,7 @@ from geoMaster.schema.all_schema import PureInfo
 
 router = APIRouter(
     prefix="/decode",
-    tags=["ai"],
+    tags=["decode"],
     responses={404: {"description": "Not found"}}
 )
 

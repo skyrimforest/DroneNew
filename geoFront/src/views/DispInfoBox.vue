@@ -51,7 +51,7 @@
               direction="vertical"
               align="center"
             >
-              <el-descriptions-item label="后台地图" align="center">
+              <el-descriptions-item label="在线地图" align="center">
                 <el-icon><CircleCheck :style="{ color: mapOnline }" /></el-icon>
               </el-descriptions-item>
               <el-descriptions-item label="干扰模组" align="center">
@@ -217,7 +217,8 @@ export default {
       return this.bellOK ? this.colorOK : this.colorNO;
     },
     mapOnline() {
-      return this.mapOK ? this.colorOnline : this.colorNO;
+      return this.colorOnline;
+      // return this.mapOK ? this.colorOnline : this.colorNO;
     },
     masterOnline() {
       return this.masterOK ? this.colorOnline : this.colorNO;
@@ -314,7 +315,6 @@ export default {
           this.masterOK = false;
         });
     },
-
     get_node_status() {
       doHttpRequest("NODE_HEARTBEAT", {})
         .then((res) => {
@@ -349,34 +349,34 @@ export default {
           this.masterOK = false;
         });
     },
-    get_map_status() {
-      doHttpRequest("DIS_HEARTBEAT", {})
-        .then((res) => {
-          if (res.data.success == true) {
-            if (this.moduleUpdateTime[0] === 0) {
-              this.moduleUpdateTime[0] = new Date(res.data.timestamp);
-              this.mapOK = true;
-            } else {
-              let curr_time = new Date(res.data.timestamp);
-              if (
-                curr_time.getTime() - this.moduleUpdateTime[0].getTime() <=
-                10000
-              ) {
-                this.moduleUpdateTime[0] = curr_time;
-                this.mapOK = true;
-              } else {
-                this.mapOK = false;
-              }
-            }
-          } else {
-            this.mapOK = false;
-          }
-        })
-        .catch((err) => {
-          // console.log(err);
-          this.mapOK = false;
-        });
-    },
+    // get_map_status() {
+    //   doHttpRequest("MAP_HEARTBEAT", {})
+    //     .then((res) => {
+    //       if (res.data.success == true) {
+    //         if (this.moduleUpdateTime[0] === 0) {
+    //           this.moduleUpdateTime[0] = new Date(res.data.timestamp);
+    //           this.mapOK = true;
+    //         } else {
+    //           let curr_time = new Date(res.data.timestamp);
+    //           if (
+    //             curr_time.getTime() - this.moduleUpdateTime[0].getTime() <=
+    //             10000
+    //           ) {
+    //             this.moduleUpdateTime[0] = curr_time;
+    //             this.mapOK = true;
+    //           } else {
+    //             this.mapOK = false;
+    //           }
+    //         }
+    //       } else {
+    //         this.mapOK = false;
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       // console.log(err);
+    //       this.mapOK = false;
+    //     });
+    // },
     get_disturb_status() {
       doHttpRequest("DIS_HEARTBEAT", {})
         .then((res) => {

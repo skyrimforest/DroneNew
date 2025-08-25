@@ -8,18 +8,39 @@ import uvicorn
 # 引入命令行参数读取
 import argparse
 # 引入路由控件
-from geoMaster.controller import child_controller,ai_controller,zed_controller,decoder_controller
+from geoMaster.controller import (
+    child_controller,
+    ai_controller,
+    # zed_controller, # 本次项目中暂时不用了
+    decoder_controller,
+    spectrogram_controller
+)
 # 引入基本配置
 from geoMaster.BaseConfig.base_config import BaseConfig
 
 # 引入zed通信服务组件
-from geoMaster.service import work_service
+# from geoMaster.service import work_service
+
+# ========= 日志配置 =========
+import logging
+
+class IgnoreOptionsFilter(logging.Filter):
+    """过滤掉 uvicorn.access 的 OPTIONS 日志"""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "OPTIONS" not in record.getMessage()
+
+
+# 获取 uvicorn.access 的 logger
+uvicorn_access_logger = logging.getLogger("uvicorn.access")
+uvicorn_access_logger.addFilter(IgnoreOptionsFilter())
 
 app = FastAPI()
 app.include_router(child_controller.router)
-app.include_router(zed_controller.router)
+# app.include_router(zed_controller.router)
 app.include_router(ai_controller.router)
 app.include_router(decoder_controller.router)
+app.include_router(spectrogram_controller.router)
 
 origins = [
     "*",
@@ -53,6 +74,7 @@ def parse_args():
 async def root():
     return {"message": "Hello World"}
 
+
 # 功能状态机:
 #   系统启动
 #   ->注册阶段,注册一个之后即可开始进行服务,之后也可不断注册子节点
@@ -67,9 +89,12 @@ async def lifespan(app: FastAPI):
     # 启动时执行
     # zed_service.run_tcp_client_and_save_data()
     # zed_service.run_fft()
-    work_service.run_work_thread()
+    # work_service.run_work_thread()
     yield  # 应用运行中
     # 关闭时执行
 
+
 if __name__ == '__main__':
-    uvicorn.run("geoMaster.main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)
+    uvicorn.run("geoMaster.main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT,
+                reload=False,
+                access_log=True)

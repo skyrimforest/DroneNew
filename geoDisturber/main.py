@@ -8,14 +8,29 @@ import argparse
 
 from geoDisturber.BaseConfig.base_config import BaseConfig
 # 引入路由控件
-from geoDisturber.controller import script_controller,trap_controller
+from geoDisturber.controller import script_controller, trap_controller
+
+# ========= 日志配置 =========
+import logging
+
+
+class IgnoreOptionsFilter(logging.Filter):
+    """过滤掉 uvicorn.access 的 OPTIONS 日志"""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "OPTIONS" not in record.getMessage()
+
+
+# 获取 uvicorn.access 的 logger
+uvicorn_access_logger = logging.getLogger("uvicorn.access")
+uvicorn_access_logger.addFilter(IgnoreOptionsFilter())
 
 app = FastAPI()
 app.include_router(script_controller.router)
 app.include_router(trap_controller.router)
 
 # 处理cors问题
-origins=[
+origins = [
     "*",
 ]
 
@@ -26,6 +41,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # 接收环境变量
 def parse_args():
@@ -41,6 +57,7 @@ def parse_args():
     )
     return parser.parse_args()
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -50,8 +67,7 @@ async def root():
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
+
 if __name__ == '__main__':
-    uvicorn.run("geoDisturber.main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT)
-
-
-
+    uvicorn.run("geoDisturber.main:app", host=BaseConfig.HOST_IP, port=BaseConfig.HOST_PORT, reload=False,
+                access_log=True)

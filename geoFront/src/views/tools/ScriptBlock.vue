@@ -55,4 +55,4 @@ const closeSelf = () => {
 };
 </script>
 
-<style scoped src="../styles/scriptblock.css"></style>
+<style scoped src="../../styles/scriptblock.css"></style>

@@ -7,8 +7,8 @@
 
 <script>
 import { ElButton } from "element-plus";
-import LoginBox from "../views/LoginBox.vue";
-import NewLoginBox from "../views/NewLoginBox.vue";
+import LoginBox from "../views/tools/LoginBox.vue";
+import NewLoginBox from "../views/tools/NewLoginBox.vue";
 import { showInfo, doHttpRequest } from "@/modules/request";
 
 export default {

@@ -87,16 +87,15 @@ import { ref, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import gsap from "gsap";
 import { ElNotification } from "element-plus";
-import { useStore } from "@/stores/index";
+import { useStore } from "@/stores";
 import { doHttpRequest } from "@/modules/request";
-import { BorderBox8 } from "@kjgl77/datav-vue3";
 
 const store = useStore();
 const router = useRouter();
 const username = ref("");
 const password = ref("");
 const checked1 = ref(true);
-const top_pic_url = "../assets/drone.png";
+const top_pic_url = "../../assets/drone.png";
 const characters = ["无", "线", "可", "击"];
 const charRefs = [];
 const showAnimation = ref(false);

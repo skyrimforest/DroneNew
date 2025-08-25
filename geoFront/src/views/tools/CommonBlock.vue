@@ -44,4 +44,4 @@ onMounted(() => {});
 onUpdated(() => {});
 </script>
 
-<style scoped src="../styles/commonblock.css"></style>
+<style scoped src="../../styles/commonblock.css"></style>

@@ -21,7 +21,7 @@ processList = {}
 # command是脚本文件名称
 # args是脚本参数
 def get_script_name(ci: CommandInfo, dirName=BaseConfig.TARGET_SCRIPTS_PATH):
-    script_target = BaseConfig.SCRIPTS_PATH + "/" + dirName + "/" + ci.pattern + "/" + ci.power + "/" + ci.command + ".pyc"
+    script_target = BaseConfig.SCRIPTS_PATH + "/" + dirName + "/" + ci.pattern + "/" + ci.power + "/" + ci.command + ".py"
     return script_target
 
 
@@ -67,8 +67,13 @@ def stop_script(uuid: str):
     global processList
     nameList = processList.keys()
     if uuid in nameList:
-        os.kill(processList[uuid].pid, signal.SIGTERM)
-        processList.pop(uuid)
+        try:
+            os.kill(processList[uuid].pid, signal.SIGTERM)
+            processList.pop(uuid)
+        except PermissionError:
+            logger.error(f"脚本已运行完毕.")
+            processList.pop(uuid)
+
         logger.info(f"{uuid} has stopped...")
 
 

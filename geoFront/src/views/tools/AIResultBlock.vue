@@ -44,4 +44,4 @@ onMounted(() => {});
 onUpdated(() => {});
 </script>
 
-<style scoped src="../styles/airesultblock.css"></style>
+<style scoped src="../../styles/airesultblock.css"></style>

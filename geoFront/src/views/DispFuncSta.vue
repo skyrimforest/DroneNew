@@ -5,7 +5,8 @@
         <dv-decoration7>
           <div color-white font-300>
             <Button color="#615ea8" font-color="#615ea8" border="Border6">
-              无人机波形统计报告</Button
+              无人机波形统计报告
+            </Button
             >
           </div>
         </dv-decoration7>
@@ -22,12 +23,12 @@
 
           <!-- 主节点波形图部分 -->
           <ElRow>
-            <ElCol :span="1"> </ElCol>
+            <ElCol :span="1"></ElCol>
             <ElCol :span="22">
               <ElCard>
                 <ElRow>
                   <ElCol :span="24">
-                    <v-chart class="chart" :option="pic_options[0]" />
+                    <v-chart class="chart" :option="pic_options[0]"/>
                   </ElCol>
                 </ElRow>
               </ElCard>
@@ -43,12 +44,12 @@
 
           <!-- 子节点波形图部分 -->
           <ElRow>
-            <ElCol :span="1"> </ElCol>
+            <ElCol :span="1"></ElCol>
             <ElCol :span="22">
               <ElCard>
                 <ElRow>
                   <ElCol :span="24">
-                    <v-chart class="chart" :option="pic_options[1]" />
+                    <v-chart class="chart" :option="pic_options[1]"/>
                   </ElCol>
                 </ElRow>
               </ElCard>
@@ -64,12 +65,12 @@
 
           <!-- 子节点波形图部分 -->
           <ElRow>
-            <ElCol :span="1"> </ElCol>
+            <ElCol :span="1"></ElCol>
             <ElCol :span="22">
               <ElCard>
                 <ElRow>
                   <ElCol :span="24">
-                    <v-chart class="chart" :option="pic_options[2]" />
+                    <v-chart class="chart" :option="pic_options[2]"/>
                   </ElCol>
                 </ElRow>
               </ElCard>
@@ -85,12 +86,12 @@
 
           <!-- 子节点波形图部分 -->
           <ElRow>
-            <ElCol :span="1"> </ElCol>
+            <ElCol :span="1"></ElCol>
             <ElCol :span="22">
               <ElCard>
                 <ElRow>
                   <ElCol :span="24">
-                    <v-chart class="chart" :option="pic_options[3]" />
+                    <v-chart class="chart" :option="pic_options[3]"/>
                   </ElCol>
                 </ElRow>
               </ElCard>
@@ -110,15 +111,15 @@
 </template>
 
 <script setup>
-import { ref, provide, onMounted, onDeactivated, onUnmounted } from "vue";
+import {ref, provide, onMounted} from "vue";
 
 // echarts的引入
-import { use } from "echarts/core";
-import { CanvasRenderer } from "echarts/renderers";
-import { PieChart, LineChart, BarChart } from "echarts/charts";
-import { Button } from "@kjgl77/datav-vue3";
+import {use} from "echarts/core";
+import {CanvasRenderer} from "echarts/renderers";
+import {PieChart, LineChart, BarChart} from "echarts/charts";
+import {Button} from "@kjgl77/datav-vue3";
 
-import { doHttpRequest, getWebSocket } from "@/modules/request.js";
+import {doHttpRequest, getWebSocket} from "@/modules/request.js";
 
 import {
   TitleComponent,
@@ -129,8 +130,8 @@ import {
   DataZoomComponent,
 } from "echarts/components";
 
-import VChart, { THEME_KEY } from "vue-echarts";
-import { ElScrollbar } from "element-plus";
+import VChart, {THEME_KEY} from "vue-echarts";
+import {ElScrollbar} from "element-plus";
 
 use([
   CanvasRenderer,
@@ -148,55 +149,8 @@ use([
 
 provide(THEME_KEY, "dark");
 
-const masterWS = ref("");
-
-const handleMaster = (data) => {
-  x_y_datas.value = [];
-  const realData = JSON.parse(data);
-  console.log("这是频谱页面");
-  console.log(realData);
-  for (let i = 0; i < realData.length; i++) {
-    x_y_datas.value.push(realData[i]);
-  }
-  update_option();
-};
-
-let reconnectInterval = 1000; // 初始重连间隔时间（毫秒）
-let maxReconnectInterval = 30000; // 最大重连间隔时间（毫秒）
-let reconnectAttempts = 0; // 重连尝试次数
-const reconnectWebSocket = () => {
-  if (reconnectAttempts < 10) {
-    // 设置最大重连次数
-    setTimeout(() => {
-      console.log("尝试与主节点建立连接中...");
-      reconnectAttempts++;
-      masterWS.value = getWebSocket("MASTER_WEBSOCKET");
-      masterWS.value.onmessage = (msg) => {
-        handleMaster(msg.data);
-      };
-      masterWS.value.onclose = () => {
-        console.log("WebSocket连接关闭");
-        reconnectWebSocket();
-      };
-    }, reconnectInterval);
-
-    // 指数退避算法增加重连间隔时间
-    reconnectInterval = Math.min(reconnectInterval * 2, maxReconnectInterval);
-  } else {
-    console.log("Max reconnect attempts reached. Stopping reconnect attempts.");
-  }
-};
-
 onMounted(() => {
   startListenFrequency();
-  // masterWS.value = getWebSocket("MASTER_WEBSOCKET");
-  // masterWS.value.onmessage = (msg) => {
-  //   handleMaster(msg.data);
-  // };
-  // masterWS.value.onclose = () => {
-  //   console.log("WebSocket连接关闭");
-  //   reconnectWebSocket();
-  // };
 });
 
 // ----------获取频率数据----------
@@ -455,6 +409,9 @@ const pic_options = ref([
   option_child2,
   option_child3,
 ]);
+
+let timer1;
+let timer2;
 const update_option = () => {
   for (let i = 0; i < x_y_datas.value.length; i++) {
     pic_options.value[i].title.text = "Frequency:" + x_y_datas.value[i].name;
@@ -462,9 +419,6 @@ const update_option = () => {
     pic_options.value[i].series[0].data = x_y_datas.value[i].data.y;
   }
 };
-
-let timer1;
-let timer2;
 const update_data = () => {
   x_y_datas.value = [];
   doHttpRequest("FREQUENCY", {}).then((res) => {

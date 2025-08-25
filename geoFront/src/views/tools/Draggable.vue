@@ -10,7 +10,7 @@
 import { BorderBox8 } from "@kjgl77/datav-vue3";
 
 import { ref } from "vue";
-import DispInfoBox from "./DispInfoBox.vue";
+import DispInfoBox from "../DispInfoBox.vue";
 // 初始化可拖拽的 div 的引用
 const draggableDiv = ref(null);
 // 组件初始位置
